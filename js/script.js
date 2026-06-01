@@ -70,3 +70,4 @@ formulario.addEventListener('submit', function(event) {
         campo.classList.remove("is-invalid");
         campo.classList.add("is-valid");
     }
+
