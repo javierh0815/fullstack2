@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salo : Formulario de Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    
+    <header>
+        <h1>Bienvenido a Juegos Salo</h1> 
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="categoria1.html">Juegos de Estrategia</a></li>
+                <li><a href="categoria2.html">Juegos Familiares</a></li>
+                <li><a href="categoria3.html">Juegos de Cartas</a></li>
+                <li><a href="categoria4.html">Juegos de Rol</a></li>
+                <li><a href="registro.html">Registro</a></li>
+            </ul>
+        </nav>  
+    </header>
+
+    <main>
+        <h2>Formulario de Registro</h2>
+        <form class="registro-form">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre completo">
+            </div>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="username" placeholder="Elige un nombre de usuario único">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" placeholder="Crea una contraseña segura">
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label"> Confirmar Contraseña</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma tu contraseña">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico">
+            </div>
+
+            <div class="mb-3">
+                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="fechaNacimiento">
+            </div>
+
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+            <button type="reset" class="btn btn-secondary">Limpiar</button>
+        </form>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2026 Juegos Salo.</p>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="categoria1.html">Estrategia</a></li>
+                <li><a href="categoria2.html">Familiares</a></li>
+                <li><a href="categoria3.html">Cartas</a></li>
+                <li><a href="categoria4.html">Rol</a></li>
+                <li><a href="registro.html">Registro</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</body>
+</html>

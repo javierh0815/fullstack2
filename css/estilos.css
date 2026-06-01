@@ -1,7 +1,7 @@
 :root {
     --color-body: #7bae7f;
     --color-fondo: #73956f;
-    --fuente-principal: dejaVu Sans, sans-serif;
+    --fuente-principal: Roboto, sans-serif;
     --color-tarjeta: #ffffff;
     --color-texto-oscuro: #2c3e50;
     --color-descuento: #e74c3c;
@@ -70,6 +70,14 @@ nav a::after {
 nav a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+
+header h1, footer p {
+    margin: 0; 
+}
+
+nav ul {
+    padding-left: 0 !important; 
 }
 
 .contenedor-categorias {
@@ -149,7 +157,7 @@ nav a:hover::after {
     font-weight: bold; 
 }
 
-.precio-antes {
+.precio-antiguo {
     text-decoration: line-through;
     color: #999;
     font-size: 14px;
