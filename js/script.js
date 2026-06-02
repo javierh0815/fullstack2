@@ -1,9 +1,9 @@
 const nombre = document.getElementById('nombre');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
-const confirmPassword = document.getElementById('confirm-password');
+const confirmPassword = document.getElementById('confirmPassword');
 const email = document.getElementById('email');
-const fechaNacimiento = document.getElementById('fecha-nacimiento');
+const fechaNacimiento = document.getElementById('fechaNacimiento');
 const direccion = document.getElementById('direccion');
 const formulario = document.getElementById('registro-form');
 
@@ -33,6 +33,9 @@ formulario.addEventListener('submit', function(event) {
     if (passwordValor === '') {
         mostrarError(password, 'La contraseña es obligatoria');
         formularioValido = false;
+    } else if (!validarContrasena(passwordValor)) {
+        mostrarError(password, 'La contraseña debe tener entre 6 y 18 caracteres, al menos una letra mayúscula y un número');
+        formularioValido = false;
     }
     if (confirmPasswordValor === '') {
         mostrarError(confirmPassword, 'La confirmación de contraseña es obligatoria');
@@ -48,7 +51,13 @@ formulario.addEventListener('submit', function(event) {
         mostrarError(email, 'El correo electrónico no es válido');
         formularioValido = false;
     }
-
+    if (fechaNacimientoValor !== '') {
+        const edad = validarFechaNacimiento(fechaNacimientoValor);
+        if (edad < 13) {
+            mostrarError(fechaNacimiento, 'Debes ser mayor de 13 años');
+            formularioValido = false;
+        }
+    }
     if (direccionValor === '') {
         mostrarError(direccion, 'La dirección es obligatoria');
         formularioValido = false;
@@ -61,13 +70,48 @@ formulario.addEventListener('submit', function(event) {
 
 });
 
-    function mostrarError(campo) {
-        campo.classList.add("is-invalid");
-        campo.classList.remove("is-valid");
+    function mostrarError(input, mensaje) {
+        const error = document.createElement('div');
+        error.className = 'text-danger small mt-1 error-mensaje';
+        error.innerText = mensaje;
+        input.parentElement.appendChild(error);
     }
 
-    function marcarValido(campo) {
-        campo.classList.remove("is-invalid");
-        campo.classList.add("is-valid");
+    function limpiarFormulario() {
+        const errores = document.querySelectorAll('.error-mensaje');
+        errores.forEach(error => error.remove());
     }
 
+    function validarEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    function validarFechaNacimiento(fecha) {
+            const fechaActual = new Date();
+            const nacimiento = new Date(fecha);
+
+            let edad = fechaActual.getFullYear() - nacimiento.getFullYear();
+            const mes = fechaActual.getMonth();
+            const dia = fechaActual.getDate();
+            const mesNacimiento = nacimiento.getMonth();
+            const diaNacimiento = nacimiento.getDate();
+
+            if (mes < mesNacimiento || (mes === mesNacimiento && dia < diaNacimiento)) {
+                edad--;
+            }
+
+            return edad;
+        
+
+    }
+
+    function validarCorreoElectronico(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+    }
+
+    function validarContrasena(password) {
+            const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,18}$/;
+            return regex.test(password);
+    }

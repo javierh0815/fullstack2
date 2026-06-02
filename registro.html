@@ -9,63 +9,82 @@
 </head>
 <body>
     
-    <header>
-        <h1>Bienvenido a Juegos Salo</h1> 
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="categoria1.html">Juegos de Estrategia</a></li>
-                <li><a href="categoria2.html">Juegos Familiares</a></li>
-                <li><a href="categoria3.html">Juegos de Cartas</a></li>
-                <li><a href="categoria4.html">Juegos de Rol</a></li>
-                <li><a href="registro.html">Registro</a></li>
-            </ul>
-        </nav>  
+    <header class="bg-transparent">
+        <nav class="navbar navbar-expand-lg navbar-dark w-100 px-4">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-3 fw-bold m-0" href="index.html">Bienvenido a Juegos Salo</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav gap-2 mt-3 mt-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria1.html">Juegos de Estrategia</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria2.html">Juegos Familiares</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria3.html">Juegos de Cartas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria4.html">Juegos de Rol</a></li>
+                        <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <h2>Formulario de Registro</h2>
-        <form class="registro-form">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre Completo</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre completo">
+        <div class="juegos-grid justify-content-center">
+            
+            <div class="w-100 px-3" style="max-width: 450px;">
+                
+                <h2 class="text-center text-white mb-4">Formulario de Registro</h2>
+                
+                <form class="registro-form w-100" id="registro-form">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label text-white">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre completo">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label text-white">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="username" placeholder="Elige un nombre de usuario único">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label text-white">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="Crea una contraseña segura">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label text-white">Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma tu contraseña">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label text-white">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fechaNacimiento" class="form-label text-white">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" id="fechaNacimiento">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label text-white">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección">
+                    </div>
+
+                    <div class="d-flex flex-column gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+                        <button type="reset" class="btn btn-secondary w-100">Limpiar</button>
+                    </div>
+                </form>
+
             </div>
 
-            <div class="mb-3">
-                <label for="username" class="form-label">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="username" placeholder="Elige un nombre de usuario único">
-            </div>
-
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="Crea una contraseña segura">
-            </div>
-
-            <div class="mb-3">
-                <label for="confirmPassword" class="form-label"> Confirmar Contraseña</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma tu contraseña">
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico">
-            </div>
-
-            <div class="mb-3">
-                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" id="fechaNacimiento">
-            </div>
-
-            <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-            <button type="reset" class="btn btn-secondary">Limpiar</button>
-        </form>
+        </div>
     </main>
-
 
     <footer>
         <p>&copy; 2026 Juegos Salo.</p>
@@ -84,6 +103,6 @@
 
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
+     <script src="js/script.js"></script>    
 </body>
 </html>

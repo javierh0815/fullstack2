@@ -9,52 +9,68 @@
 </head>
 <body>
     
-    <header>
-        <h1>Bienvenido a Juegos Salo</h1> 
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="categoria1.html">Juegos de Estrategia</a></li>
-                <li><a href="categoria2.html">Juegos Familiares</a></li>
-                <li><a href="categoria3.html">Juegos de Cartas</a></li>
-                <li><a href="categoria4.html">Juegos de Rol</a></li>
-                <li><a href="registro.html">Registro</a></li>
-            </ul>
-        </nav>  
+    <header class="bg-transparent">
+        <nav class="navbar navbar-expand-lg navbar-dark w-100 px-4">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-3 fw-bold m-0" href="index.html">Bienvenido a Juegos Salo</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav gap-2 mt-3 mt-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria1.html">Juegos de Estrategia</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria2.html">Juegos Familiares</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria3.html">Juegos de Cartas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria4.html">Juegos de Rol</a></li>
+                        <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <main>
-        <h2>Juegos Familiares</h2>
-        <div class="juegos-grid">
-            <article class="tarjeta-juego">
-                <img src="assets/img/cat2_jenga.png" alt="Jenga">
-                <h3>Jenga</h3>
-                <p>Un juego de habilidad y equilibrio donde los jugadores deben retirar bloques de una torre sin que esta se derrumbe.</p>
-                <div class="precio-contenedor">
-                    <span class="precio">$14.990</span>
-                </div>
-            </article>
+    <main class="container py-5">
+        <h2 class="text-center text-white mb-5">Juegos Familiares</h2>
+        
+        <div class="row g-4 justify-content-center">
 
-            <article class="tarjeta-juego">
-                <img src="assets/img/cat2_monopoly.png" alt="Monopoly Premier League">
-                <h3>Monopoly Premier League</h3>
-                <p>Una versión temática del clásico juego de mesa, donde los jugadores compran y venden propiedades relacionadas con la Premier League de fútbol.</p>
-                <div class="precio-contenedor">
-                    <span class="precio">$24.990</span>
-                </div>
-            </article>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img src="assets/img/cat2_jenga.png" alt="Jenga">
+                    <h3>Jenga</h3>
+                    <p>Un juego de habilidad y equilibrio donde los jugadores deben retirar bloques de una torre sin que esta se derrumbe.</p>
+                    <div class="precio-contenedor">
+                        <span class="precio">$14.990</span>
+                    </div>
+                </article>
+            </div>
 
-            <article class="tarjeta-juego">
-                <img src="assets/img/cat2_twister.png" alt="Twister">
-                <h3>Twister</h3>
-                <p>Un juego de destreza física donde los jugadores deben colocar sus manos y pies en círculos de colores sin caerse.</p>
-                <div class="precio-contenedor">
-                    <s class="precio-antiguo">$19.990</s>
-                    <span class="precio">$15.990</span>
-                    <span class="descuento">-20%!</span>
-                </div>
-            </article>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img src="assets/img/cat2_monopoly.png" alt="Monopoly Premier League">
+                    <h3>Monopoly Premier League</h3>
+                    <p>Una versión temática del clásico juego de mesa, donde los jugadores compran y venden propiedades relacionadas con la Premier League de fútbol.</p>
+                    <div class="precio-contenedor">
+                        <span class="precio">$24.990</span>
+                    </div>
+                </article>
+            </div>
 
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img src="assets/img/cat2_twister.png" alt="Twister">
+                    <h3>Twister</h3>
+                    <p>Un juego de destreza física donde los jugadores deben colocar sus manos y pies en círculos de colores sin caerse.</p>
+                    <div class="precio-contenedor">
+                        <s class="precio-antiguo">$19.990</s>
+                        <span class="precio">$15.990</span>
+                        <span class="descuento">-20%!</span>
+                    </div>
+                </article>
+            </div>
 
         </div>
     </main>

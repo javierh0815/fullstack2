@@ -9,59 +9,70 @@
 </head>
 <body>
     
-    <header>
-        <h1>Bienvenido a Juegos Salo</h1> 
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="categoria1.html">Juegos de Estrategia</a></li>
-                <li><a href="categoria2.html">Juegos Familiares</a></li>
-                <li><a href="categoria3.html">Juegos de Cartas</a></li>
-                <li><a href="categoria4.html">Juegos de Rol</a></li>
-                <li><a href="registro.html">Registro</a></li>
-            </ul>
-        </nav>  
+    <header class="bg-transparent">
+        <nav class="navbar navbar-expand-lg navbar-dark w-100 px-4">
+            <div class="container-fluid">
+                <a class="navbar-brand fs-3 fw-bold m-0" href="index.html">Bienvenido a Juegos Salo</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav gap-2 mt-3 mt-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria1.html">Juegos de Estrategia</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria2.html">Juegos Familiares</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria3.html">Juegos de Cartas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="categoria4.html">Juegos de Rol</a></li>
+                        <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <main>
+    <main class="container py-5">
+        <h2 class="text-center text-white mb-5">Juegos de Cartas</h2>
+        
+        <div class="row g-4 justify-content-center">
 
-        <h2>Juegos de Cartas</h2>
-        <div class="juegos-grid">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img src="assets/img/cat3_dbz.png" alt="Dragon Ball Z: Card Game">
+                    <h3>Dragon Ball Z: Card Game</h3>
+                    <p>Un juego de cartas estratégico basado en la serie de anime Dragon Ball Z.</p>
+                    <div class="precio-contenedor">
+                        <span class="precio">$19.990</span>
+                    </div>
+                </article>
+            </div>
 
-            <article class="tarjeta-juego">
-                <img src="assets/img/cat3_dbz.png" alt="Dragon Ball Z: Card Game">
-                <h3>Dragon Ball Z: Card Game</h3>
-                <p>Un juego de cartas estratégico basado en la serie de anime Dragon Ball Z.</p>
-                <div class="precio-contenedor">
-                    <span class="precio">$19.990</span>
-                </div>
-            </article>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img src="assets/img/cat3_magic.png" alt="Magic: The Gathering">
+                    <h3>Magic: The Gathering</h3>
+                    <p>Un juego de cartas coleccionables donde los jugadores asumen el papel de poderosos magos que luchan entre sí.</p>
+                    <div class="precio-contenedor">
+                        <s class="precio-antiguo">$32.990</s>
+                        <span class="precio">$29.990</span>
+                        <span class="descuento">-10%!</span>
+                    </div>
+                </article>
+            </div>
 
-            <article class="tarjeta-juego">
-                <img src="assets/img/cat3_magic.png" alt="Magic: The Gathering">
-                <h3>Magic: The Gathering</h3>
-                <p>Un juego de cartas coleccionables donde los jugadores asumen el papel de poderosos magos que luchan entre sí.</p>
-                <div class="precio-contenedor">
-                    <s class="precio-antiguo">$32.990</s>
-                    <span class="precio">$29.990</span>
-                    <span class="descuento">-10%!</span>
-                </div>
-            </article>
-
-            <article class="tarjeta-juego">
-                <img src="assets/img/cat3_op.png" alt="One Piece Card Game">
-                <h3>One Piece Card Game</h3>
-                <p>Un juego de cartas basado en la popular serie de manga y anime One Piece, donde los jugadores forman equipos de personajes para enfrentarse en batallas estratégicas.</p>
-                <div class="precio-contenedor">
-                    <span class="precio">$24.990</span>
-                </div>
-            </article>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img src="assets/img/cat3_op.png" alt="One Piece Card Game">
+                    <h3>One Piece Card Game</h3>
+                    <p>Un juego de cartas basado en la popular serie de manga y anime One Piece, donde los jugadores forman equipos de personajes para enfrentarse en batallas estratégicas.</p>
+                    <div class="precio-contenedor">
+                        <span class="precio">$24.990</span>
+                    </div>
+                </article>
+            </div>
 
         </div>
-
-
-
-
     </main>
 
 
