@@ -64,6 +64,20 @@ formulario.addEventListener('submit', function(event) {
     }
 
     if (formularioValido) {
+
+        const nuevoUsuario = {
+            nombre: nombreValor,
+            username: usernameValor,
+            password: passwordValor,
+            email: emailValor,
+            fechaNacimiento: fechaNacimientoValor,
+            direccion: direccionValor
+        };
+
+        const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
+        usuariosGuardados.push(nuevoUsuario);
+        localStorage.setItem('usuarios', JSON.stringify(usuariosGuardados));
+        
         alert('Registro exitoso');
         formulario.reset();
     }
