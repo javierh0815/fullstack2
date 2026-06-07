@@ -73,15 +73,20 @@ formulario.addEventListener('submit', function(event) {
             fechaNacimiento: fechaNacimientoValor,
             direccion: direccionValor
         };
-
+        /*
         const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
         usuariosGuardados.push(nuevoUsuario);
         localStorage.setItem('usuarios', JSON.stringify(usuariosGuardados));
-        
-        alert('Registro exitoso');
-        formulario.reset();
-    }
+        */
 
+        if (GestionUsuario.existe(usernameValor)) {
+            mostrarError(username, 'El nombre de usuario ya existe');
+        } else {
+            GestionUsuario.guardar(nuevoUsuario);
+            alert('Registro exitoso');
+            formulario.reset();
+        }
+    }
 });
 
     function mostrarError(input, mensaje) {
@@ -126,6 +131,6 @@ formulario.addEventListener('submit', function(event) {
     }
 
     function validarContrasena(password) {
-            const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,18}$/;
+            const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&.=#\-]{6,18}$/;
             return regex.test(password);
     }
