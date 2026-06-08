@@ -12,7 +12,7 @@ const Carrito = {
         const nuevaOrden = {
             idProducto: producto.id,
             nombre: producto.nombre,
-            precio: producto.precio,
+            precio: parseFloat(producto.precio), 
             usuario: usuarioActual.username,
             fecha: new Date().toISOString()
         };
@@ -23,15 +23,14 @@ const Carrito = {
     }
 };
 
-
-
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('btn-agregar')) {
         const btn = e.target;
+        
         Carrito.agregarProducto({
             id: btn.dataset.id,
             nombre: btn.dataset.nombre,
-            precio: btn.dataset.precio
+            precio: btn.dataset.precio 
         });
     }
 });
