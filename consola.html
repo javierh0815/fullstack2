@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos Salo :: Consola</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    
+    <main class="container consola-container">
+        <div class="mb-4">
+            <button class="btn btn-primary btn-admin" onclick="mostrarSeccion('usuarios')">Gestionar Usuarios</button>
+            <button class="btn btn-primary btn-admin" onclick="mostrarSeccion('carritos')">Gestionar Compras</button>
+        </div>
+
+        <section id="seccion-usuarios" class="section-content">
+            <h3>Usuarios Registrados</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr><th>Username</th><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tabla-usuarios"></tbody>
+            </table>
+
+            <div id="section-edicion" class="section-content">
+                <h4>Editar Usuario</h4>
+                <form id="form-edicion">
+                    <input type="text" id="edit-username" class="form-control" readonly>
+                    <input type="text" id="edit-nombre" class="form-control" placeholder="Nombre">
+                    <input type="email" id="edit-email" class="form-control" placeholder="Email">
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">Cancelar</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="seccion-carritos" class="section-content">
+            <h3>Registro de Compras</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr><th>ID</th><th>Usuario</th><th>Producto</th><th>Precio</th><th>Fecha</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="tabla-carritos"></tbody>
+            </table>
+        </section>
+    </main>   
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="js/usuario.js"></script>
+    <script src="js/consola.js"></script>
+</body>
+</html>
