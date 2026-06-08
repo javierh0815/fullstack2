@@ -11,5 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         alert('Debes iniciar sesión para ver tu perfil.');
         window.location.href = 'login.html';
+        return;
     }
+
+    const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
+
+    if (btnCerrarSesion) {
+        btnCerrarSesion.addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                GestionUsuario.cerrarSesion();
+                alert('Has cerrado sesión correctamente.');
+                window.location.href = 'index.html';
+            }
+        });
+    }
+
+
+
+
+
+
+
 });

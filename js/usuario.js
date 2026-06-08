@@ -35,5 +35,13 @@ const GestionUsuario = {
 
     obtenerUsuarioActual: function() {
         return JSON.parse(localStorage.getItem('usuarioActual'));
+    },
+
+    iniciarSesion: function(usuario) {
+        localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+    },
+
+    cerrarSesion: function() {
+        localStorage.removeItem('usuarioActual');
     }
 }   

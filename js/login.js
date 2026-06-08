@@ -9,6 +9,8 @@ loginForm.addEventListener('submit', function(event) {
     const usuarioEncontrado = GestionUsuario.validarCredenciales(username, password);
 
     if (usuarioEncontrado) {
+        GestionUsuario.iniciarSesion(usuarioEncontrado);
+        
         alert('¡Bienvenido, ' + usuarioEncontrado.nombre + '!');
         window.location.href = 'index.html';
     } else {

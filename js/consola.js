@@ -56,6 +56,9 @@ function cargarTablaUsuarios(rol) {
 
 function abrirEdicion(username) {
     const usuarioSys = GestionSistema.obtenerUsuarioActualSys();
+    
+    if (!usuarioSys) return;
+    
     if (usuarioSys.rol !== 'admin') {
         alert("Acción no permitida.");
         return;
@@ -108,6 +111,14 @@ function cargarTablaCarritos(rol) {
 
 
 function eliminarCompra(id) {
+
+    const usuarioSys = GestionSistema.obtenerUsuarioActualSys();
+    if (!usuarioSys) {
+        alert('Sesión expirada. Por favor, inicia sesión de nuevo.');
+        window.location.href = 'loginSistema.html';
+        return;
+    }
+
     if (confirm('¿Estás seguro de eliminar esta compra?')) {
         let todasLasCompras = JSON.parse(localStorage.getItem('todasLasCompras')) || [];
 
@@ -115,7 +126,6 @@ function eliminarCompra(id) {
         localStorage.setItem('todasLasCompras', JSON.stringify(todasLasCompras));
         
 
-        const usuarioSys = GestionSistema.obtenerUsuarioActualSys();
         cargarTablaCarritos(usuarioSys.rol);
     }
 }
@@ -125,6 +135,11 @@ function mostrarSeccion(seccion) {
     const sUsuarios = document.getElementById('seccion-usuarios');
     const sCarritos = document.getElementById('seccion-carritos');
     const usuarioSys = GestionSistema.obtenerUsuarioActualSys();
+
+    if (!usuarioSys) {
+        window.location.href = 'loginSistema.html';
+        return;
+    }
 
     if (seccion === 'usuarios') {
         sUsuarios.style.display = 'block';

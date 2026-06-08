@@ -125,10 +125,6 @@ formulario.addEventListener('submit', function(event) {
 
     }
 
-    function validarCorreoElectronico(email) {
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return regex.test(email);
-    }
 
     function validarContrasena(password) {
             const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&.=#\-]{6,18}$/;
