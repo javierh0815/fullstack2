@@ -21,7 +21,7 @@ const Carrito = {
             id: this.obtenerNuevoId(),
             idProducto: producto.id,
             nombre: producto.nombre,
-            precio: parseFloat(producto.precio), 
+            precio: parseInt(producto.precio.toString().replace(/\./g, ''), 10), 
             usuario: usuarioActual.username,
             fecha: new Date().toISOString()
         };
