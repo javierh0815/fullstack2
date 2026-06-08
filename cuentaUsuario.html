@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juegos Salo :: Recuperar Contraseña</title>
+    <title>Juegos Salo :: Mi Cuenta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
+
     <header class="bg-transparent">
         <nav class="navbar navbar-expand-lg navbar-dark w-100 px-4">
             <div class="container-fluid">
                 <a class="navbar-brand fs-3 fw-bold m-0" href="index.html">Bienvenido a Juegos Salo</a>
-                
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav gap-2 mt-3 mt-lg-0">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
@@ -26,29 +27,34 @@
                         <li class="nav-item"><a class="nav-link" href="categoria3.html">Juegos de Cartas</a></li>
                         <li class="nav-item"><a class="nav-link" href="categoria4.html">Juegos de Rol</a></li>
                         <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.html">Iniciar Sesión</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     
-
+    
     <main>
         <div class="juegos-grid justify-content-center">
-            
             <div class="w-100 px-3" style="max-width: 450px;">
-                
-                <h2 class="text-center text-white mb-4">Recuperar Contraseña</h2>
-                
-                <form class="registro-form w-100" id="recupera-contra-form">
-                    <div class="mb-3">
-                        <label for="email" class="form-label text-white">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico registrado">
-                    </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Enviar Instrucciones</button>
-                </form>
+                <h2 class="text-center text-white mb-4">Mi Cuenta</h2>
+
+                <div class="card bg-dark border-light p-4">
+                    <ul class="list-unstyled text-white" id="lista-perfil">
+                        <li class="mb-2"><strong>Nombre:</strong> <span id="perfil-nombre"></span></li>
+                        <li class="mb-2"><strong>Usuario:</strong> <span id="perfil-username"></span></li>
+                        <li class="mb-2"><strong>Email:</strong> <span id="perfil-email"></span></li>
+                        <li class="mb-2"><strong>Fecha de Nacimiento:</strong> <span id="perfil-fecha"></span></li>
+                        <li class="mb-2"><strong>Dirección:</strong> <span id="perfil-direccion"></span></li>
+                    </ul>
+
+                    <div class="d-flex flex-column gap-2 mt-4">
+                        <a href="modificarUsuario.html" class="btn btn-primary w-100">Modificar Perfil</a>
+                        <a href="index.html" class="btn btn-secondary w-100">Volver al Inicio</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
@@ -69,7 +75,6 @@
                 <li><a href="categoria3.html">Cartas</a></li>
                 <li><a href="categoria4.html">Rol</a></li>
                 <li><a href="registro.html">Registro</a></li>
-                <li><a href="login.html">Iniciar Sesión</a></li>
             </ul>
         </nav>
     </footer>
@@ -80,8 +85,11 @@
 
 
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        <script src="js/usuario.js"></script>
-        <script src="js/recuperaContra.js"></script>
+    <script src="js/usuario.js"></script>
+    <script src="js/perfilUsuario.js"></script>
+
 </body>
 </html>
