@@ -1,0 +1,40 @@
+<header class="bg-transparent">
+  <nav class="navbar navbar-expand-lg navbar-dark w-100 px-4">
+    <div class="container-fluid">
+      
+      <a class="navbar-brand fs-3 fw-bold m-0" routerLink="/">Bienvenido a Juegos Salo</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav gap-2 mt-3 mt-lg-0">
+          
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/">Inicio</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categorías
+            </a>
+            <ul class="dropdown-menu">
+              <li *ngFor="let cat of categorias">
+                <a class="dropdown-item" [routerLink]="['/categoria', cat.id]">
+                  {{ cat.nombre }}
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" routerLink="/registro">Registro</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/login">Iniciar Sesión</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/carrito">Mi Carrito</a></li>
+          
+        </ul>
+      </div>
+      
+    </div>
+  </nav>
+</header>
