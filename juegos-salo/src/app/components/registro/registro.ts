@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import { UsuarioService } from '../../services/usuario';
 
 @Component({
   selector: 'app-registro',
@@ -12,7 +13,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, ValidationErro
 export class Registro {
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
     this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
       username: ['', Validators.required],
@@ -23,7 +24,7 @@ export class Registro {
       confirmPassword: ['', Validators.required],
       fechaNacimiento: ['', this.validarEdad],
       direccion: ['', Validators.required],
-    }, { validators: this.passwordsIguales });
+    }, { validators: this.passwordsIguales.bind(this) });
   }
 
   validarEdad(control: AbstractControl): ValidationErrors | null {
@@ -39,15 +40,28 @@ export class Registro {
   }
 
   passwordsIguales(group: AbstractControl): ValidationErrors | null {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordsNoCoinciden: true };
+      const password = group.get('password')?.value;
+      const confirmPassword = group.get('confirmPassword')?.value;
+
+
+      if (!confirmPassword) return null; 
+
+      return password === confirmPassword ? null : { passwordsNoCoinciden: true };
   }
 
 
   registrar(){
     if (this.registroForm.valid) {
-      console.log('Registro exitoso:', this.registroForm.value);
+      const { confirmPassword, ...datosUsuario } = this.registroForm.value;
+
+      if (this.usuarioService.existe(datosUsuario.username)) {
+        alert('El nombre de usuario ya existe, por favor elegir otro.')
+        return;
+      }
+
+      this.usuarioService.guardar(datosUsuario);
+      alert('Registro exitoso. Ahora puedes iniciar sesión.');
+      this.registroForm.reset();
     }
   }
 
