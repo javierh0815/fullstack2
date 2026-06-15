@@ -10,14 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.css',
 })
 export class Header {
-  categorias = [
-    {id: 1, nombre: 'Estrategia'},
-    {id: 2, nombre: 'Familiares'},
-    {id: 3, nombre: 'Cartas'},
-    {id: 4, nombre: 'Rol'}
-    ];
+    categorias = [
+      {id: 1, nombre: 'Estrategia'},
+      {id: 2, nombre: 'Familiares'},
+      {id: 3, nombre: 'Cartas'},
+      {id: 4, nombre: 'Rol'}
+      ];
 
-
+    
 
 
 

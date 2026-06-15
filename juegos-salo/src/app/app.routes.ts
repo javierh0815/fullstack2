@@ -8,9 +8,11 @@ export const routes: Routes = [
         loadComponent: () => import('./components/home/home').then(m => m.Home)
     },
 
+
     {
         path: 'categoria/:id',
-        loadComponent: () => import('./components/categoria/categoria').then(m => m.Categoria)
+        loadComponent: () => import('./components/categoria/categoria').then(m => m.Categoria),
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange' 
     },
 
     {
