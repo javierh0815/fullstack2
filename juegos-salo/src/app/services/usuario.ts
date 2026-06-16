@@ -1,4 +1,4 @@
-import { Injectable, Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +20,25 @@ export class UsuarioService {
         return this.obtenerTodos().some((usuario: any) => usuario.username === username);
     }
 
+    validarCredenciales(username: string, password: string) {
+        const usuarios = this.obtenerTodos();
 
+        return usuarios.find((u: any) => u.username === username && u.password === password);
+    }
+
+    iniciarSesion(usuario: any) {
+
+        localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+    }
+
+    obtenerUsuarioActual() {
+        const usuario = localStorage.getItem('usuarioActual');
+        return usuario ? JSON.parse(usuario) : null;
+    }
+
+    cerrarSesion() {
+        localStorage.removeItem('usuarioActual');
+    }
 
 
 

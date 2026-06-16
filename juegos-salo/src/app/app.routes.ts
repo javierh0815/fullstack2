@@ -8,6 +8,10 @@ export const routes: Routes = [
         loadComponent: () => import('./components/home/home').then(m => m.Home)
     },
 
+    {
+        path: 'registro',
+        loadComponent: () => import('./components/registro/registro').then(m => m.Registro)
+    },
 
     {
         path: 'categoria/:id',
