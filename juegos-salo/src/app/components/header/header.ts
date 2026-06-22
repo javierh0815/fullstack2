@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UsuarioService } from '../../services/usuario';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +18,11 @@ export class Header {
       {id: 4, nombre: 'Rol'}
       ];
 
-    
+    constructor(private usuarioService : UsuarioService){}
 
-
+    get usuarioLogged(){
+      return this.usuarioService.obtenerUsuarioActual();
+    }
 
 
 

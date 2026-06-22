@@ -30,13 +30,23 @@
               </ul>
           </li>
 
-          <li class="nav-item"><a class="nav-link" routerLink="/registro">Registro</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/login">Iniciar Sesión</a></li>
+          <li class="nav-item" *ngIf="!usuarioLogged">
+            <a class="nav-link" routerLink="/registro">Registro</a>
+          </li>
+          <li class="nav-item" *ngIf="!usuarioLogged">
+            <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+          </li>
+
+          <li class="nav-item" *ngIf="usuarioLogged">
+            <a class="nav-link" routerLink="/cuenta-usuario">
+              Hola, {{ usuarioLogged?.nombre }}
+            </a>
+          </li>
           <li class="nav-item"><a class="nav-link" routerLink="/carrito">Mi Carrito</a></li>
           
         </ul>
       </div>
-      
-    </div>
+    
+    </div> 
   </nav>
 </header>
