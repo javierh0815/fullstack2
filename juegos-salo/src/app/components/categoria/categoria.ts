@@ -1,6 +1,8 @@
-import { Component, OnInit, signal} from '@angular/core';
+import { Component, OnInit, signal, inject} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Producto } from '../../models/producto';
+import { ProductoService } from '../../services/producto-service';
 
 @Component({
   selector: 'app-categoria',
@@ -12,6 +14,9 @@ import { CommonModule } from '@angular/common';
 export class Categoria implements OnInit {
   
   nombreCategoria = signal('Cargando...');
+  productos = signal<Producto[]>([]);
+
+  private productoService = inject(ProductoService);
 
   listaCategorias = [
         {id: '1', nombre: 'Juegos de Estrategia'},
@@ -29,8 +34,11 @@ export class Categoria implements OnInit {
             const categoria = this.listaCategorias.find(cat => cat.id === id);
             if (categoria) {
                 this.nombreCategoria.set(categoria.nombre);
+                const idNumero = Number(id);
+                this.productos.set(this.productoService.obtenerProductoPorCat(idNumero));
             } else {
                 this.nombreCategoria.set('Categoría no encontrada');
+                this.productos.set([]);
             }
         });
     }

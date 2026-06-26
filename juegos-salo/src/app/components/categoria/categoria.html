@@ -1,5 +1,21 @@
-<div class="container mt-5">
-  <h1>{{ nombreCategoria() }}</h1>
-  
-  <p>Explora nuestro catálogo seleccionado de {{ nombreCategoria() }}.</p>
-</div>
+<main class="container py-5">
+    <h2 class="text-center text-white mb-5">{{ nombreCategoria() }}</h2>
+    
+    <div class="row g-4 justify-content-center">
+        @for (prod of productos(); track prod.id) {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img [src]="prod.imagen" [alt]="prod.nombre">
+                    <h3>{{ prod.nombre }}</h3>
+                    <p>{{ prod.descripcion }}</p>
+                    <div class="precio-contenedor">
+                        @if (prod.precioAnterior) { <s>${{ prod.precioAnterior }}</s> }
+                        <span class="precio">${{ prod.precio }}</span>
+                    </div>
+                    <button class="btn-agregar btn btn-primary">Agregar al Carrito</button>
+                </article>
+            </div>
+        }
+    </div>
+    
+</main>
