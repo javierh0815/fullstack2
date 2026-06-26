@@ -1,1 +1,22 @@
-<p>home works!</p>
+<main class="container py-5">
+    <h2 class="text-center text-white mb-5">¡Descuentos!</h2>
+    
+    <div class="row g-4 justify-content-center">
+        @for (prod of productosDescuento(); track prod.id) {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <article class="tarjeta-juego w-100">
+                    <img [src]="prod.imagen" [alt]="prod.nombre">
+                    <h3>{{ prod.nombre }}</h3>
+                    <p>{{ prod.descripcion }}</p>
+                    <div class="precio-contenedor">
+                        <s class="precio-antiguo">${{ prod.precioAnterior }}</s>
+                        <span class="precio">${{ prod.precio }}</span>
+                        <span class="descuento">
+                            -{{ (((prod.precioAnterior! - prod.precio) / prod.precioAnterior!) * 100) | number:'1.0-0' }}%!
+                        </span>
+                    </div>
+                </article>
+            </div>
+        }
+    </div>
+</main>
