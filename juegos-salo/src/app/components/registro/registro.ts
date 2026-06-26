@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
-import { UsuarioService } from '../../services/usuario';
+import { UsuarioService } from '../../services/usuario-service';
 
 @Component({
   selector: 'app-registro',

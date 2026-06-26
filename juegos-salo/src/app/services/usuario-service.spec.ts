@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
-import { UsuarioService } from './usuario';
+import { UsuarioService } from './usuario-service';
 
 describe('UsuarioService', () => {
   let service: UsuarioService;
