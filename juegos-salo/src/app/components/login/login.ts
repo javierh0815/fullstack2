@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../services/usuario-service';
 
 @Component({
@@ -17,54 +17,31 @@ export class Login {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private router: Router
-  ){
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  iniciarSesion(){
-    if(this.loginForm.valid){
+  iniciarSesion() {
+    if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      const usuarioEncontrado = this.usuarioService.validarCredenciales(username,password);
+      const usuarioEncontrado = this.usuarioService.validarCredenciales(username, password);
 
-      if (usuarioEncontrado){
+      if (usuarioEncontrado) {
         this.usuarioService.iniciarSesion(usuarioEncontrado);
+
+
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
         alert(`¡Bienvenido, ${usuarioEncontrado.nombre}!`);
-        this.router.navigate(['/']);
-      }else{
+        this.router.navigateByUrl(returnUrl);
+      } else {
         alert('Nombre de usuario o contraseña incorrectos');
       }
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
