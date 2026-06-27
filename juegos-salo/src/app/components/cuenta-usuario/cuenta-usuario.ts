@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario-service';
+import { Usuario } from '../../models/usuario';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { UsuarioService } from '../../services/usuario-service';
   styleUrl: './cuenta-usuario.css',
 })
 export class CuentaUsuario implements OnInit {
-  usuario: any = null;
+  usuario: Usuario | null = null;
 
   constructor(
     private usuarioService: UsuarioService,

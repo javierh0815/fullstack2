@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
     providedIn: 'root'
@@ -9,24 +10,23 @@ export class UsuarioService {
         return JSON.parse(localStorage.getItem('usuarios') || '[]');
     }
 
-    guardar(nuevoUsuario: any){
+    guardar(usuario: Usuario): void{
         const usuarios = this.obtenerTodos();
-        usuarios.push(nuevoUsuario);
+        usuarios.push(usuario);
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
     }
 
 
     existe(username: string): boolean {
-        return this.obtenerTodos().some((usuario: any) => usuario.username === username);
+        return this.obtenerTodos().some((usuario: Usuario) => usuario.username === username);
     }
 
-    validarCredenciales(username: string, password: string) {
+    validarCredenciales(username: string, password: string): Usuario | undefined {
         const usuarios = this.obtenerTodos();
-
-        return usuarios.find((u: any) => u.username === username && u.password === password);
+        return usuarios.find((u: Usuario) => u.username === username && u.password === password);
     }
 
-    iniciarSesion(usuario: any) {
+    iniciarSesion(usuario: Usuario) {
 
         localStorage.setItem('usuarioActual', JSON.stringify(usuario));
     }

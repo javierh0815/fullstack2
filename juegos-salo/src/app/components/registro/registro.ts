@@ -22,7 +22,7 @@ export class Registro {
                        Validators.pattern(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&.=#\-]{6,18}$/),
       ]],
       confirmPassword: ['', Validators.required],
-      fechaNacimiento: ['', this.validarEdad],
+      fechaNacimiento: ['', Validators.required, this.validarEdad],
       direccion: ['', Validators.required],
     }, { validators: this.passwordsIguales.bind(this) });
   }
