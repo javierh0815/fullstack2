@@ -1,1 +1,18 @@
-<p>recupera-contra works!</p>
+<main>
+    <div class="juegos-grid justify-content-center">
+        <div class="w-100 px-3" style="max-width: 450px;">
+            <h2 class="text-center text-white mb-4">Recuperar Contraseña</h2>
+            
+            <form [formGroup]="recuperarForm" (ngSubmit)="enviarInstrucciones()" class="registro-form w-100">
+                <div class="mb-3">
+                    <label for="email" class="form-label text-white">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Ingresa tu correo electrónico registrado">
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100" [disabled]="recuperarForm.invalid">
+                    Enviar Instrucciones
+                </button>
+            </form>
+        </div>
+    </div>
+</main>

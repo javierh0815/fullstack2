@@ -1,1 +1,30 @@
-<p>modifica-perfil works!</p>
+<form [formGroup]="perfilForm" (ngSubmit)="modificar()" class="modifica-form w-100">
+    <div class="mb-3">
+        <label for="nombre" class="form-label text-white">Nombre Completo</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+    </div>
+    
+    <div class="mb-3">
+        <label for="username" class="form-label text-white">Nombre de Usuario</label>
+        <input type="text" class="form-control bg-secondary text-white" formControlName="username" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label text-white">Correo Electrónico</label>
+        <input type="email" class="form-control" formControlName="email">
+    </div>
+
+    <div class="mb-3">
+        <label for="fechaNacimiento" class="form-label text-white">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" formControlName="fechaNacimiento">
+    </div>
+
+    <div class="mb-3">
+        <label for="direccion" class="form-label text-white">Dirección</label>
+        <input type="text" class="form-control" formControlName="direccion">
+    </div>
+
+    <div class="d-flex flex-column gap-2 mt-4">
+        <button type="submit" class="btn btn-primary w-100" [disabled]="perfilForm.invalid">Modificar Perfil</button>
+    </div>
+</form>

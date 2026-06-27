@@ -42,10 +42,25 @@ export class UsuarioService {
 
 
 
+    actualizar(username: string, nuevosDatos: Partial<Usuario>): boolean {
+        const usuarios = this.obtenerTodos();
+        const index = usuarios.findIndex((u: Usuario) => u.username === username);
+    
+        if (index !== -1) {
+        
+            usuarios[index] = { ...usuarios[index], ...nuevosDatos };
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            this.iniciarSesion(usuarios[index]);
+            return true;
+        }
+        return false;
+    }
 
 
-
-
+    buscarPorEmail(email: string): Usuario | undefined {
+        const usuarios = this.obtenerTodos();
+        return usuarios.find((u: Usuario) => u.email === email);
+    }
 
 
 
