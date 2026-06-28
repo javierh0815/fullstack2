@@ -1,0 +1,82 @@
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+//import { UsuarioSysService } from '../../services/usuario-sys-service';
+import { UsuarioService } from '../../services/usuario-service';
+import { Router } from '@angular/router';
+
+
+@Component({
+  selector: 'app-consola-sys',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './consola-sys.html',
+  styleUrl: './consola-sys.css',
+})
+export class ConsolaSys implements OnInit {
+  //private sysService = inject(UsuarioSysService);
+  private userService = inject(UsuarioService);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+
+  usuarioSys = signal<any>(null);
+  seccionActual = signal<'usuarios' | 'carritos'>('usuarios');
+  editForm: FormGroup;
+  
+  usuarios = signal<any[]>([]);
+  compras = signal<any[]>([]);
+  usuarioEditando = signal<any | null>(null);
+
+  constructor() {
+    this.editForm= this.fb.group({
+      username: [''],
+      nombre: [''],
+      email: ['']
+    });
+  }
+
+  ngOnInit() {
+    const data = sessionStorage.getItem('usuarioSys');
+    if (!data) {
+      alert('Debes iniciar sesión...');
+      this.router.navigate(['/login-sys']);
+      return;
+    }
+    this.usuarioSys.set(JSON.parse(data));
+    this.cargarDatos();
+  }
+
+  cargarDatos() {
+    this.usuarios.set(this.userService.obtenerTodos());
+    this.compras.set(JSON.parse(localStorage.getItem('todasLasCompras') || '[]'));
+  }
+
+  mostrarSeccion(seccion: 'usuarios' | 'carritos') {
+    this.seccionActual.set(seccion);
+  }
+
+  abrirEdicion(u: any) {
+    if (this.usuarioSys()?.rol !== 'admin') return alert("Acción no permitida.");
+    this.usuarioEditando.set(u);
+    this.editForm.patchValue(u);
+  }
+
+  guardarEdicion() {
+    if (this.userService.actualizar(this.editForm.value.username, this.editForm.value)) {
+      alert('Usuario actualizado exitosamente.');
+      this.usuarioEditando.set(null);
+      this.cargarDatos();
+    }
+  }
+
+  eliminarCompra(id: number) {
+    if (this.usuarioSys()?.rol !== 'admin') return alert("Acción no permitida.");
+    
+    if (confirm('¿Estás seguro de eliminar esta compra?')) {
+      let todasLasCompras = JSON.parse(localStorage.getItem('todasLasCompras') || '[]');
+      todasLasCompras = todasLasCompras.filter((c: any) => c.id !== id);
+      localStorage.setItem('todasLasCompras', JSON.stringify(todasLasCompras));
+      this.cargarDatos();
+    }
+  }
+}

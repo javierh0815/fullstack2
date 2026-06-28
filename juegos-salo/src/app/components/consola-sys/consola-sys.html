@@ -1,0 +1,66 @@
+<main class="container py-4">
+    <div class="mb-4">
+        <button class="btn btn-primary" (click)="mostrarSeccion('usuarios')">Gestionar Usuarios</button>
+        <button class="btn btn-primary" (click)="mostrarSeccion('carritos')">Gestionar Compras</button>
+    </div>
+
+    @if (seccionActual() === 'usuarios') {
+        <section>
+            <h3>Usuarios Registrados</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr><th>Username</th><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                    @for (u of usuarios(); track u.username) {
+                        <tr>
+                            <td>{{u.username}}</td><td>{{u.nombre}}</td><td>{{u.email}}</td>
+                            <td>
+                                @if (usuarioSys()?.rol === 'admin') {
+                                    <button class="btn btn-warning btn-sm" (click)="abrirEdicion(u)">Editar</button>
+                                } @else { <span class="text-muted">Solo lectura</span> }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (usuarioEditando()) {
+                <div class="card p-3">
+                    <h4>Editar Usuario</h4>
+                    <form [formGroup]="editForm" (ngSubmit)="guardarEdicion()">
+                        <input formControlName="username" class="form-control" readonly>
+                        <input formControlName="nombre" class="form-control" placeholder="Nombre">
+                        <input formControlName="email" class="form-control" placeholder="Email">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-secondary" (click)="usuarioEditando.set(null)">Cancelar</button>
+                    </form>
+                </div>
+            }
+        </section>
+    }
+
+    @if (seccionActual() === 'carritos') {
+        <section>
+            <h3>Registro de Compras</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr><th>ID</th><th>Usuario</th><th>Producto</th><th>Precio</th><th>Fecha</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                    @for (c of compras(); track c.id) {
+                        <tr>
+                            <td>#{{c.id}}</td><td>{{c.usuario}}</td><td>{{c.nombre}}</td>
+                            <td>${{c.precio.toLocaleString()}}</td><td>{{c.fecha | date:'shortDate'}}</td>
+                            <td>
+                                @if (usuarioSys()?.rol === 'admin') {
+                                    <button class="btn btn-danger btn-sm" (click)="eliminarCompra(c.id)">Eliminar</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    }
+</main>
