@@ -3,7 +3,7 @@ export interface Usuario {
     username: string,
     email: string,
     password: string,
-    confirmPassword: string,
+    confirmPassword?: string,
     fechaNacimiento: string,
     direccion: string
 }
