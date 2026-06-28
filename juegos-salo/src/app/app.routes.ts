@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth-guard';
+import { authSysGuard } from './guards/auth-sys-guard';
 
 export const routes: Routes = [
 
@@ -57,6 +58,17 @@ export const routes: Routes = [
             { path: 'modifica-perfil', loadComponent: () => import('./components/modifica-perfil/modifica-perfil').then(m => m.ModificarPerfil) },
             { path: 'carrito', loadComponent: () => import('./components/carrito/carrito').then(m => m.CarritoComponent) }
         ]
+    },
+
+    { 
+        path: 'login-sys', 
+        loadComponent: () => import('./components/login-sys/login-sys').then(m => m.LoginSys) 
+    },
+
+    { 
+        path: 'consola-sys', 
+        loadComponent: () => import('./components/consola-sys/consola-sys').then(m => m.ConsolaSys),
+        canActivate: [authSysGuard]
     }
 
 
