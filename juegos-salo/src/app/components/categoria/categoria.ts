@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Producto } from '../../models/producto';
 import { ProductoService } from '../../services/producto-service';
+import { CarritoService } from '../../services/carrito-service';
 
 @Component({
   selector: 'app-categoria',
@@ -17,6 +18,8 @@ export class Categoria implements OnInit {
   productos = signal<Producto[]>([]);
 
   private productoService = inject(ProductoService);
+
+  private carritoService = inject(CarritoService);
 
   listaCategorias = [
         {id: '1', nombre: 'Juegos de Estrategia'},
@@ -43,7 +46,10 @@ export class Categoria implements OnInit {
         });
     }
 
-
+    agregarAlCarrito(producto: Producto) {
+        this.carritoService.agregarProducto(producto);
+        alert(`${producto.nombre} ha sido agregado al carrito.`);
+    }
 
 
 

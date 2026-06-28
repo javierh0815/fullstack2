@@ -12,7 +12,9 @@
                         @if (prod.precioAnterior) { <s>${{ prod.precioAnterior }}</s> }
                         <span class="precio">${{ prod.precio }}</span>
                     </div>
-                    <button class="btn-agregar btn btn-primary">Agregar al Carrito</button>
+                    <button class="btn-agregar btn btn-primary" (click)="agregarAlCarrito(prod)">
+                        Agregar al Carrito
+                    </button>
                 </article>
             </div>
         }
