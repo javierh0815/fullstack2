@@ -1,17 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModificaPerfil } from './modifica-perfil';
+import { ModificarPerfil } from './modifica-perfil';
+import { UsuarioService } from '../../services/usuario-service';
 
-describe('ModificaPerfil', () => {
-  let component: ModificaPerfil;
-  let fixture: ComponentFixture<ModificaPerfil>;
+describe('ModificarPerfil', () => {
+  let component: ModificarPerfil;
+  let fixture: ComponentFixture<ModificarPerfil>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModificaPerfil],
+      imports: [ModificarPerfil],
+      providers: [
+    { provide: UsuarioService, useValue: { obtenerUsuarioActual: () => ({ username: 'test' }), actualizar: () => true } }
+  ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModificaPerfil);
+    fixture = TestBed.createComponent(ModificarPerfil);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

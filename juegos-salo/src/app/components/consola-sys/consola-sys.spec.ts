@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideRouter } from '@angular/router';
 import { ConsolaSys } from './consola-sys';
 
 describe('ConsolaSys', () => {
@@ -9,6 +9,9 @@ describe('ConsolaSys', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ConsolaSys],
+      providers: [
+        provideRouter([{ path: 'login-sys', component: class {} }])
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ConsolaSys);

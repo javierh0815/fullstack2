@@ -1,19 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CarritoService } from '../../services/carrito-service';
+import { CarritoComponent } from './carrito';
 
-import { Carrito } from './carrito';
-
-describe('Carrito', () => {
-  let component: Carrito;
-  let fixture: ComponentFixture<Carrito>;
+describe('CarritoComponent', () => { 
+  let component: CarritoComponent;
+  let fixture: ComponentFixture<CarritoComponent>;
 
   beforeEach(async () => {
+
+    const carritoServiceMock = {
+      obtenerCarritoUsuario: () => [] 
+    };
+
     await TestBed.configureTestingModule({
-      imports: [Carrito],
+      imports: [CarritoComponent],
+      providers: [
+        { provide: CarritoService, useValue: carritoServiceMock }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Carrito);
+    fixture = TestBed.createComponent(CarritoComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges(); 
   });
 
   it('should create', () => {
