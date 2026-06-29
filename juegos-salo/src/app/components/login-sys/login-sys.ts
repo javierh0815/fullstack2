@@ -21,24 +21,20 @@ export class LoginSys {
     password: ['', Validators.required]
   });
 
-  onSubmit(){
+  onSubmit() {
     if (this.loginSysForm.valid) {
       const { username, password } = this.loginSysForm.value;
-      const usuario = this.sysService.obtenerUsuariosSistema(username,password);
 
-      if(usuario){
+      
+      const exito = this.sysService.iniciarSesion(username, password);
+
+      if (exito) {
         alert('Inicio de sesión exitoso...');
-        sessionStorage.setItem('usuarioSys', JSON.stringify(usuario));
         this.router.navigate(['/consola-sys']);
       } else {
         alert('Credenciales incorrectas. Intentar de nuevo...');
         this.loginSysForm.reset();
       }
-
-
-
     }
   }
-
-
 }

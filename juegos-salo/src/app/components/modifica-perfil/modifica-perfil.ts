@@ -34,7 +34,7 @@ export class ModificarPerfil implements OnInit {
       if (user) {
         if (this.usuarioService.actualizar(user.username, this.perfilForm.value)) {
           alert('Perfil modificado exitosamente');
-          this.router.navigate(['/cuenta']);
+          this.router.navigate(['/cuenta-usuario']);
         } else {
           alert('Error al actualizar');
         }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UsuarioService } from '../../services/usuario-service';
 import { Usuario } from '../../models/usuario';
 
@@ -8,7 +8,7 @@ import { Usuario } from '../../models/usuario';
 @Component({
   selector: 'app-cuenta-usuario',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './cuenta-usuario.html',
   styleUrl: './cuenta-usuario.css',
 })

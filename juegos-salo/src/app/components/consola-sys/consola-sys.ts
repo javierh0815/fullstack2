@@ -1,10 +1,9 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-//import { UsuarioSysService } from '../../services/usuario-sys-service';
+import { UsuarioSysService } from '../../services/usuario-sys-service';
 import { UsuarioService } from '../../services/usuario-service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-consola-sys',
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrl: './consola-sys.css',
 })
 export class ConsolaSys implements OnInit {
-  //private sysService = inject(UsuarioSysService);
+  private sysService = inject(UsuarioSysService);
   private userService = inject(UsuarioService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -28,7 +27,7 @@ export class ConsolaSys implements OnInit {
   usuarioEditando = signal<any | null>(null);
 
   constructor() {
-    this.editForm= this.fb.group({
+    this.editForm = this.fb.group({
       username: [''],
       nombre: [''],
       email: ['']
@@ -36,13 +35,15 @@ export class ConsolaSys implements OnInit {
   }
 
   ngOnInit() {
-    const data = sessionStorage.getItem('usuarioSys');
-    if (!data) {
-      alert('Debes iniciar sesión...');
+
+    const usuario = this.sysService.obtenerUsuarioActual();
+    
+    if (!usuario) {
+      alert('Debes iniciar sesión para acceder al sistema.');
       this.router.navigate(['/login-sys']);
       return;
     }
-    this.usuarioSys.set(JSON.parse(data));
+    this.usuarioSys.set(usuario);
     this.cargarDatos();
   }
 
@@ -78,5 +79,10 @@ export class ConsolaSys implements OnInit {
       localStorage.setItem('todasLasCompras', JSON.stringify(todasLasCompras));
       this.cargarDatos();
     }
+  }
+
+  cerrarSesion() {
+    this.sysService.cerrarSesion(); 
+    this.router.navigate(['/login-sys']);
   }
 }

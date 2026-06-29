@@ -13,9 +13,15 @@
         <input type="password" class="form-control" formControlName="password" placeholder="Tu contraseña">
       </div>
 
-      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
-        Ingresar
+      <button type="submit" class="btn btn-primary w-100 mb-2" [disabled]="loginForm.invalid">
+          Ingresar
       </button>
+      
+      <div class="text-center">
+          <button type="button" class="btn btn-link text-white" routerLink="/recupera-contra">
+              ¿Olvidaste tu contraseña?
+          </button>
+      </div>
     </form>
   </div>
 </div>

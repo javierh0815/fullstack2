@@ -7,7 +7,13 @@
         <p><strong>Email:</strong> {{ usuario.email }}</p>
         <p><strong>Fecha de Nacimiento:</strong> {{ usuario.fechaNacimiento }}</p>
         <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
+
         
+        <button type="button" 
+            class="btn btn-warning w-100" 
+            routerLink="/modifica-perfil">
+            Modificar Perfil
+        </button>
         <button class="btn btn-danger mt-3" (click)="cerrarSesion()">Cerrar Sesión</button>
     </div>
 </div>
