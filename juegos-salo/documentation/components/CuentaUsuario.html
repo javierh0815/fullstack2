@@ -196,6 +196,8 @@
                 <td class="col-md-9">
                         <div>        <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
 </div>
+                        <div>        <code><a href="https://angular.dev/api/router/RouterModule" target="_blank" >RouterModule</a></code>
+</div>
                 </td>
             </tr>
 
@@ -241,6 +243,9 @@
                         <ul class="list-unstyled relationships-list">
                                 <li>
                                             <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/router/RouterModule" target="_blank" >RouterModule</a></code>
                                 </li>
                                 <li>
                                             <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
@@ -489,7 +494,7 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
-import { Router } from &#x27;@angular/router&#x27;;
+import { Router, RouterModule } from &#x27;@angular/router&#x27;;
 import { UsuarioService } from &#x27;../../services/usuario-service&#x27;;
 import { Usuario } from &#x27;../../models/usuario&#x27;;
 
@@ -497,7 +502,7 @@ import { Usuario } from &#x27;../../models/usuario&#x27;;
 @Component({
   selector: &#x27;app-cuenta-usuario&#x27;,
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: &#x27;./cuenta-usuario.html&#x27;,
   styleUrl: &#x27;./cuenta-usuario.css&#x27;,
 })
@@ -571,7 +576,13 @@ export class CuentaUsuario implements OnInit {
         &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; {{ usuario.email }}&lt;/p&gt;
         &lt;p&gt;&lt;strong&gt;Fecha de Nacimiento:&lt;/strong&gt; {{ usuario.fechaNacimiento }}&lt;/p&gt;
         &lt;p&gt;&lt;strong&gt;Dirección:&lt;/strong&gt; {{ usuario.direccion }}&lt;/p&gt;
+
         
+        &lt;button type&#x3D;&quot;button&quot; 
+            class&#x3D;&quot;btn btn-warning w-100&quot; 
+            routerLink&#x3D;&quot;/modifica-perfil&quot;&gt;
+            Modificar Perfil
+        &lt;/button&gt;
         &lt;button class&#x3D;&quot;btn btn-danger mt-3&quot; (click)&#x3D;&quot;cerrarSesion()&quot;&gt;Cerrar Sesión&lt;/button&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -609,8 +620,8 @@ export class CuentaUsuario implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container mt-5" *ngIf="usuario">    <h2 class="text-white mb-4">Bienvenido, {{ usuario.nombre }}</h2>    <div class="card p-4">        <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>        <p><strong>Usuario:</strong> {{ usuario.username }}</p>        <p><strong>Email:</strong> {{ usuario.email }}</p>        <p><strong>Fecha de Nacimiento:</strong> {{ usuario.fechaNacimiento }}</p>        <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>                <button class="btn btn-danger mt-3" (click)="cerrarSesion()">Cerrar Sesión</button>    </div></div></div>'
-    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container mt-5" *ngIf="usuario">    <h2 class="text-white mb-4">Bienvenido, {{ usuario.nombre }}</h2>    <div class="card p-4">        <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>        <p><strong>Usuario:</strong> {{ usuario.username }}</p>        <p><strong>Email:</strong> {{ usuario.email }}</p>        <p><strong>Fecha de Nacimiento:</strong> {{ usuario.fechaNacimiento }}</p>        <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>                <button type="button"             class="btn btn-warning w-100"             routerLink="/modifica-perfil">            Modificar Perfil        </button>        <button class="btn btn-danger mt-3" (click)="cerrarSesion()">Cerrar Sesión</button>    </div></div></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CuentaUsuario'};
 </script>

@@ -116,12 +116,12 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >UsuarioSysService</li>
+  <li class="breadcrumb-item" >ZipExportService</li>
 </ol>
 
 <div class="io-file io-file-path" data-compodoc="entity-file-path">
     <span class="icon ion-ios-document" aria-hidden="true"></span>
-    <code>src/app/services/usuario-sys-service.ts</code>
+    <code>documentation/template-playground/zip-export.service.ts</code>
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -163,29 +163,30 @@
         </section>
 
 
+                <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="../modules/TemplatePlaygroundModule.html" target="_self" >TemplatePlaygroundModule</a></code>
+                                </li>
+                        </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <p class="comment"><i>No results matching.</i></p>
+                </div>
             </div>
+        </section>
+    </div>
 
     <div class="tab-pane fade " id="api">
             <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
-        <table class="table table-sm table-bordered index-table">
-            <tbody>
-                <tr>
-                    <td class="col-md-3">
-                        <h6><b>Properties</b></h6>
-                    </td>
-                    <td class="col-md-9">
-                        <ul class="index-list">
-                            <li>
-                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
-                                    <span class="modifier">Private</span>
-                                <a href="#usuariosSistema" >usuariosSistema</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
 
         <table class="table table-sm table-bordered index-table">
             <tbody>
@@ -197,19 +198,17 @@
                         <ul class="index-list">
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
-                                <a href="#cerrarSesion" >cerrarSesion</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#downloadBlob" >downloadBlob</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
-                                <a href="#iniciarSesion" >iniciarSesion</a>
+                                <a href="#exportTemplates" >exportTemplates</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
-                                <a href="#obtenerUsuarioActual" >obtenerUsuarioActual</a>
-                            </li>
-                            <li>
-                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
-                                <a href="#obtenerUsuariosSistema" >obtenerUsuariosSistema</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateReadme" >generateReadme</a>
                             </li>
                         </ul>
                     </td>
@@ -233,24 +232,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="cerrarSesion"></a>
+                    <a name="downloadBlob"></a>
                     <span class="name">
-                        <span ><b>cerrarSesion</b></span>
-                        <a href="#cerrarSesion"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Private</span>
+                        <span ><b>downloadBlob</b></span>
+                        <a href="#downloadBlob"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>cerrarSesion()</code>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadBlob(blob: Blob, filename: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/services/usuario-sys-service.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">documentation/template-playground/zip-export.service.ts:75</a></div>
                         </td>
                     </tr>
 
@@ -258,10 +259,52 @@
             <tr>
                 <td class="col-md-4">
 
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>blob</td>
+                                            <td>
+                                                        <code>Blob</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>filename</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -270,24 +313,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="iniciarSesion"></a>
+                    <a name="exportTemplates"></a>
                     <span class="name">
-                        <span ><b>iniciarSesion</b></span>
-                        <a href="#iniciarSesion"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>exportTemplates</b></span>
+                        <a href="#exportTemplates"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>iniciarSesion(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>exportTemplates(files: any[])</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="15"
-                                    class="link-to-prism">src/app/services/usuario-sys-service.ts:15</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="10"
+                                    class="link-to-prism">documentation/template-playground/zip-export.service.ts:10</a></div>
                         </td>
                     </tr>
 
@@ -308,21 +351,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>username</td>
+                                                <td>files</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>password</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        <code>any[]</code>
                                             </td>
 
                                             <td>
@@ -335,7 +366,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
                             <div class="io-description">
@@ -349,210 +380,135 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="obtenerUsuarioActual"></a>
-                    <span class="name">
-                        <span ><b>obtenerUsuarioActual</b></span>
-                        <a href="#obtenerUsuarioActual"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>obtenerUsuarioActual()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/services/usuario-sys-service.ts:28</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>UsuarioSys | null</code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="obtenerUsuariosSistema"></a>
-                    <span class="name">
-                        <span ><b>obtenerUsuariosSistema</b></span>
-                        <a href="#obtenerUsuariosSistema"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>obtenerUsuariosSistema(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">src/app/services/usuario-sys-service.ts:39</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>username</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>password</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>UsuarioSys | undefined</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-            <section data-compodoc="block-properties">
-    
-    <h3 id="inputs">
-        Properties
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="usuariosSistema"></a>
+                    <a name="generateReadme"></a>
                     <span class="name">
                             <span class="modifier">Private</span>
-                        <span ><b>usuariosSistema</b></span>
-                        <a href="#usuariosSistema"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>generateReadme</b></span>
+                        <a href="#generateReadme"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>    <code>UsuarioSys[]</code>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateReadme()</code>
+                </td>
+            </tr>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[
-        { username: &quot;admin_salo&quot;, password: &quot;Admin123&quot;, rol: &quot;admin&quot; },
-        { username: &quot;reporte_salo&quot;, password: &quot;Reporte123&quot;, rol: &quot;reporte&quot; }
-    ]</code>
-                    </td>
-                </tr>
+
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/services/usuario-sys-service.ts:9</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">documentation/template-playground/zip-export.service.ts:29</a></div>
                         </td>
                     </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>
+
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { UsuarioSys } from &#x27;../models/usuario-sys&#x27;;
+
+declare const JSZip: any;
 
 @Injectable({
-    providedIn: &#x27;root&#x27;
+  providedIn: &#x27;root&#x27;
 })
-export class UsuarioSysService {
+export class ZipExportService {
 
-    private usuariosSistema: UsuarioSys[] &#x3D; [
-        { username: &quot;admin_salo&quot;, password: &quot;Admin123&quot;, rol: &quot;admin&quot; },
-        { username: &quot;reporte_salo&quot;, password: &quot;Reporte123&quot;, rol: &quot;reporte&quot; }
-    ];
+  exportTemplates(files: any[]) {
+    const zip &#x3D; new JSZip();
 
+    // Add all template files to the ZIP
+    files.forEach(file &#x3D;&gt; {
+      zip.file(file.path, file.content);
+    });
 
-    iniciarSesion(username: string, password: string): boolean {
-        const usuarioEncontrado &#x3D; this.usuariosSistema.find(u &#x3D;&gt;
-            u.username &#x3D;&#x3D;&#x3D; username &amp;&amp; u.password &#x3D;&#x3D;&#x3D; password
-        );
+    // Add a README with instructions
+    const readme &#x3D; this.generateReadme();
+    zip.file(&#x27;README.md&#x27;, readme);
 
-        if (usuarioEncontrado) {
-            localStorage.setItem(&#x27;usuarioActualSys&#x27;, JSON.stringify(usuarioEncontrado));
-            return true;
-        }
-        return false;
-    }
+    // Generate and download the ZIP file
+    zip.generateAsync({ type: &#x27;blob&#x27; })
+      .then((content: Blob) &#x3D;&gt; {
+        this.downloadBlob(content, &#x27;compodoc-templates.zip&#x27;);
+      });
+  }
 
+  private generateReadme(): string {
+    return &#x60;# Compodoc Custom Templates
 
-    obtenerUsuarioActual(): UsuarioSys | null {
-        const usuario &#x3D; localStorage.getItem(&#x27;usuarioActualSys&#x27;);
-        return usuario ? JSON.parse(usuario) : null;
-    }
+This ZIP file contains customized templates for Compodoc documentation generation.
 
+## Contents
 
-    cerrarSesion(): void {
-        localStorage.removeItem(&#x27;usuarioActualSys&#x27;);
-    }
+- **Templates** (\&#x60;.hbs\&#x60; files): Handlebars templates for generating documentation pages
+- **Styles** (\&#x60;.css\&#x60; files): Stylesheets for customizing the appearance
+- **Scripts** (\&#x60;.js\&#x60; files): JavaScript files for additional functionality
 
+## Usage
 
-    obtenerUsuariosSistema(username: string, password: string): UsuarioSys | undefined {
-        return this.usuariosSistema.find(u &#x3D;&gt;
-            u.username &#x3D;&#x3D;&#x3D; username &amp;&amp; u.password &#x3D;&#x3D;&#x3D; password
-        );
-    }
-}</code></pre>
+1. Extract this ZIP file to a directory on your system
+2. Use the \&#x60;--templates\&#x60; flag when running Compodoc to specify the path to your custom templates:
+
+   \&#x60;\&#x60;\&#x60;bash
+   compodoc -p tsconfig.json --templates ./path/to/custom/templates/
+   \&#x60;\&#x60;\&#x60;
+
+## Template Structure
+
+- \&#x60;page.hbs\&#x60; - Main page template
+- \&#x60;partials/\&#x60; - Directory containing partial templates
+- \&#x60;styles/\&#x60; - Directory containing CSS files
+- \&#x60;js/\&#x60; - Directory containing JavaScript files
+
+## Customization Tips
+
+1. **Templates**: Use Handlebars syntax to customize the HTML structure
+2. **Styles**: Modify CSS to change colors, fonts, layout, etc.
+3. **Scripts**: Add custom JavaScript functionality
+
+## Backup
+
+Always keep a backup of your original templates before making changes.
+
+## Documentation
+
+For more information about customizing Compodoc templates, visit:
+https://compodoc.app/guides/template-customization.html
+
+Generated by Compodoc Template Playground
+&#x60;;
+  }
+
+  private downloadBlob(blob: Blob, filename: string) {
+    const url &#x3D; window.URL.createObjectURL(blob);
+    const a &#x3D; document.createElement(&#x27;a&#x27;);
+    a.href &#x3D; url;
+    a.download &#x3D; filename;
+    a.style.display &#x3D; &#x27;none&#x27;;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+}
+</code></pre>
     </div>
 
 </div>
@@ -595,7 +551,7 @@ export class UsuarioSysService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'UsuarioSysService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'ZipExportService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -192,6 +192,8 @@
 </div>
                         <div>        <code><a href="https://angular.dev/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
 </div>
+                        <div>        <code><a href="https://angular.dev/api/router/RouterModule" target="_blank" >RouterModule</a></code>
+</div>
                 </td>
             </tr>
 
@@ -240,6 +242,9 @@
                                 </li>
                                 <li>
                                             <code><a href="https://angular.dev/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/router/RouterModule" target="_blank" >RouterModule</a></code>
                                 </li>
                         </ul>
                 </div>
@@ -464,13 +469,13 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
-import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { Router, ActivatedRoute, RouterModule } from &#x27;@angular/router&#x27;;
 import { UsuarioService } from &#x27;../../services/usuario-service&#x27;;
 
 @Component({
   selector: &#x27;app-login&#x27;,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: &#x27;./login.html&#x27;,
   styleUrl: &#x27;./login.css&#x27;,
 })
@@ -526,9 +531,15 @@ export class Login {
         &lt;input type&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;password&quot; placeholder&#x3D;&quot;Tu contraseña&quot;&gt;
       &lt;/div&gt;
 
-      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary w-100&quot; [disabled]&#x3D;&quot;loginForm.invalid&quot;&gt;
-        Ingresar
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary w-100 mb-2&quot; [disabled]&#x3D;&quot;loginForm.invalid&quot;&gt;
+          Ingresar
       &lt;/button&gt;
+      
+      &lt;div class&#x3D;&quot;text-center&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-link text-white&quot; routerLink&#x3D;&quot;/recupera-contra&quot;&gt;
+              ¿Olvidaste tu contraseña?
+          &lt;/button&gt;
+      &lt;/div&gt;
     &lt;/form&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -566,8 +577,8 @@ export class Login {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="juegos-grid justify-content-center">  <div class="w-100 px-3" style="max-width: 400px;">    <h2 class="text-center text-white mb-4">Iniciar Sesión</h2>    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="w-100">      <div class="mb-3">        <label class="form-label text-white">Nombre de Usuario</label>        <input type="text" class="form-control" formControlName="username" placeholder="Tu usuario">      </div>      <div class="mb-3">        <label class="form-label text-white">Contraseña</label>        <input type="password" class="form-control" formControlName="password" placeholder="Tu contraseña">      </div>      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">        Ingresar      </button>    </form>  </div></div></div>'
-    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><div class="juegos-grid justify-content-center">  <div class="w-100 px-3" style="max-width: 400px;">    <h2 class="text-center text-white mb-4">Iniciar Sesión</h2>    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="w-100">      <div class="mb-3">        <label class="form-label text-white">Nombre de Usuario</label>        <input type="text" class="form-control" formControlName="username" placeholder="Tu usuario">      </div>      <div class="mb-3">        <label class="form-label text-white">Contraseña</label>        <input type="password" class="form-control" formControlName="password" placeholder="Tu contraseña">      </div>      <button type="submit" class="btn btn-primary w-100 mb-2" [disabled]="loginForm.invalid">          Ingresar      </button>            <div class="text-center">          <button type="button" class="btn btn-link text-white" routerLink="/recupera-contra">              ¿Olvidaste tu contraseña?          </button>      </div>    </form>  </div></div></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Login'};
 </script>

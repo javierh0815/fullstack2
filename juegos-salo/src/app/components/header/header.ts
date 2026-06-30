@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../services/usuario-service';
 
@@ -11,19 +11,26 @@ import { UsuarioService } from '../../services/usuario-service';
   styleUrl: './header.css',
 })
 export class Header {
-    categorias = [
+
+
+  private usuarioService = inject(UsuarioService);
+  private router = inject(Router);
+
+  categorias = [
       {id: 1, nombre: 'Estrategia'},
       {id: 2, nombre: 'Familiares'},
       {id: 3, nombre: 'Cartas'},
       {id: 4, nombre: 'Rol'}
-      ];
+  ];
 
-    constructor(private usuarioService : UsuarioService){}
+  get usuarioLogged(){
+    return this.usuarioService.obtenerUsuarioActual();
+  }
 
-    get usuarioLogged(){
-      return this.usuarioService.obtenerUsuarioActual();
-    }
-
-
+  cerrarSesion(){
+    this.usuarioService.cerrarSesion();
+    this.router.navigate(['/login']);
+  }
+    
 
 }

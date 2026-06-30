@@ -514,7 +514,7 @@ export class ModificarPerfil implements OnInit {
       if (user) {
         if (this.usuarioService.actualizar(user.username, this.perfilForm.value)) {
           alert(&#x27;Perfil modificado exitosamente&#x27;);
-          this.router.navigate([&#x27;/cuenta&#x27;]);
+          this.router.navigate([&#x27;/cuenta-usuario&#x27;]);
         } else {
           alert(&#x27;Error al actualizar&#x27;);
         }
@@ -584,7 +584,7 @@ export class ModificarPerfil implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><form [formGroup]="perfilForm" (ngSubmit)="modificar()" class="modifica-form w-100">    <div class="mb-3">        <label for="nombre" class="form-label text-white">Nombre Completo</label>        <input type="text" class="form-control" id="nombre" formControlName="nombre">    </div>        <div class="mb-3">        <label for="username" class="form-label text-white">Nombre de Usuario</label>        <input type="text" class="form-control bg-secondary text-white" formControlName="username" readonly>    </div>    <div class="mb-3">        <label for="email" class="form-label text-white">Correo Electrónico</label>        <input type="email" class="form-control" formControlName="email">    </div>    <div class="mb-3">        <label for="fechaNacimiento" class="form-label text-white">Fecha de Nacimiento</label>        <input type="date" class="form-control" formControlName="fechaNacimiento">    </div>    <div class="mb-3">        <label for="direccion" class="form-label text-white">Dirección</label>        <input type="text" class="form-control" formControlName="direccion">    </div>    <div class="d-flex flex-column gap-2 mt-4">        <button type="submit" class="btn btn-primary w-100" [disabled]="perfilForm.invalid">Modificar Perfil</button>    </div></form></div>'
-    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'}];
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ModificarPerfil'};
 </script>

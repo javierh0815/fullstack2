@@ -156,12 +156,13 @@
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject } from &#x27;@angular/core&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 import { CanActivateFn } from &#x27;@angular/router&#x27;;
+import { UsuarioSysService } from &#x27;../services/usuario-sys-service&#x27;;
 
 export const authSysGuard: CanActivateFn &#x3D; (route, state) &#x3D;&gt; {
   const router &#x3D; inject(Router);
-  const sesion &#x3D; sessionStorage.getItem(&#x27;usuarioSys&#x27;);
+  const sysService &#x3D; inject(UsuarioSysService);
 
-  if (sesion) {
+  if (sysService.obtenerUsuarioActual()) {
     return true;
   } else {
     router.navigate([&#x27;/login-sys&#x27;]); 
