@@ -1,17 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { JsonFile } from './json-file';
 import { Producto } from '../models/producto'
 
 
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
-    private http = inject(HttpClient);
+    private jsonFile = inject(JsonFile);
     private url = '/json/productos.json';
 
 
     obtenerProductos(): Observable<Producto[]> {
-        return this.http.get<Producto[]>(this.url);
+        return this.jsonFile.getAll<Producto>(this.url);
     }
 
 

@@ -1,20 +1,20 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { JsonFile } from './json-file';
 import { UsuarioSys } from '../models/usuario-sys';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UsuarioSysService {
-    private http = inject(HttpClient);
+    private jsonFile = inject(JsonFile);
     private url = '/json/usuariosSys.json';
     private usuariosSistema: UsuarioSys[] = [];
 
     constructor() {
-        this.http.get<UsuarioSys[]>(this.url).subscribe(data => {
-            this.usuariosSistema = data;
+
+        this.jsonFile.getAll<UsuarioSys>(this.url).subscribe({
+            next: (data) => this.usuariosSistema = data,
+            error: (err) => console.error('Error al cargar usuarios del sistema', err)
         });
     }
-
 
     iniciarSesion(username: string, password: string): boolean {
         const usuarioEncontrado = this.usuariosSistema.find(u =>
@@ -29,7 +29,7 @@ export class UsuarioSysService {
     }
 
 
-    obtenerUsuariosSistema(): UsuarioSys | null {
+    obtenerUsuarioActual(): UsuarioSys | null {
         const usuario = localStorage.getItem('usuarioActualSys');
         return usuario ? JSON.parse(usuario) : null;
     }
@@ -37,7 +37,4 @@ export class UsuarioSysService {
     cerrarSesion(): void {
         localStorage.removeItem('usuarioActualSys');
     }
-
-
-
 }
