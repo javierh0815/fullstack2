@@ -35,10 +35,22 @@ export class Categoria implements OnInit {
         this.route.paramMap.subscribe(params => {
             const id = params.get('id');
             const categoria = this.listaCategorias.find(cat => cat.id === id);
+
             if (categoria) {
                 this.nombreCategoria.set(categoria.nombre);
                 const idNumero = Number(id);
-                this.productos.set(this.productoService.obtenerProductoPorCat(idNumero));
+
+                
+                this.productoService.obtenerProductoPorCat(idNumero).subscribe({
+                    next: (productosFiltrados) => {
+                        this.productos.set(productosFiltrados);
+                    },
+                    error: (err) => {
+                        console.error('Error al cargar productos:', err);
+                        this.productos.set([]);
+                    }
+                });
+
             } else {
                 this.nombreCategoria.set('Categoría no encontrada');
                 this.productos.set([]);

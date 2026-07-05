@@ -12,7 +12,17 @@ import { CommonModule } from '@angular/common';
 })
 export class Home {
   private productoService = inject(ProductoService);
-  productosDescuento = signal<Producto[]>(this.productoService.obtenerProductoDescuento());
+  
 
+  productosDescuento = signal<Producto[]>([]);
 
+  constructor() {
+
+    this.productoService.obtenerProductoDescuento().subscribe({
+      next: (data) => {
+        this.productosDescuento.set(data);
+      },
+      error: (err) => console.error('Error al cargar ofertas', err)
+    });
+  }
 }
