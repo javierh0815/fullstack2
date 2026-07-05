@@ -7,7 +7,7 @@ export const authSysGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const sysService = inject(UsuarioSysService);
 
-  if (sysService.obtenerUsuarioActual()) {
+  if (sysService.obtenerUsuariosSistema()) {
     return true;
   } else {
     router.navigate(['/login-sys']); 

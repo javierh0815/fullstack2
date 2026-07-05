@@ -36,7 +36,7 @@ export class ConsolaSys implements OnInit {
 
   ngOnInit() {
 
-    const usuario = this.sysService.obtenerUsuarioActual();
+    const usuario = this.sysService.obtenerUsuariosSistema();
     
     if (!usuario) {
       alert('Debes iniciar sesión para acceder al sistema.');

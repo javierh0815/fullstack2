@@ -1,15 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 import { UsuarioSys } from '../models/usuario-sys';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class UsuarioSysService {
+    private http = inject(HttpClient);
+    private url = '/json/usuariosSys.json';
+    private usuariosSistema: UsuarioSys[] = [];
 
-    private usuariosSistema: UsuarioSys[] = [
-        { username: "admin_salo", password: "Admin123", rol: "admin" },
-        { username: "reporte_salo", password: "Reporte123", rol: "reporte" }
-    ];
+    constructor() {
+        this.http.get<UsuarioSys[]>(this.url).subscribe(data => {
+            this.usuariosSistema = data;
+        });
+    }
 
 
     iniciarSesion(username: string, password: string): boolean {
@@ -25,20 +29,15 @@ export class UsuarioSysService {
     }
 
 
-    obtenerUsuarioActual(): UsuarioSys | null {
+    obtenerUsuariosSistema(): UsuarioSys | null {
         const usuario = localStorage.getItem('usuarioActualSys');
         return usuario ? JSON.parse(usuario) : null;
     }
-
 
     cerrarSesion(): void {
         localStorage.removeItem('usuarioActualSys');
     }
 
 
-    obtenerUsuariosSistema(username: string, password: string): UsuarioSys | undefined {
-        return this.usuariosSistema.find(u =>
-            u.username === username && u.password === password
-        );
-    }
+
 }
