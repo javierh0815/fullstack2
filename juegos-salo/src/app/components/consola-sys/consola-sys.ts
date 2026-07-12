@@ -35,7 +35,6 @@ export class ConsolaSys implements OnInit {
   }
 
   ngOnInit() {
-
     const usuario = this.sysService.obtenerUsuarioActual();
     
     if (!usuario) {
@@ -48,7 +47,12 @@ export class ConsolaSys implements OnInit {
   }
 
   cargarDatos() {
-    this.usuarios.set(this.userService.obtenerTodos());
+    // Suscripción al nuevo Observable de obtenerTodos()
+    this.userService.obtenerTodos().subscribe({
+      next: (data) => this.usuarios.set(data),
+      error: (err) => console.error('Error al cargar usuarios:', err)
+    });
+    
     this.compras.set(JSON.parse(localStorage.getItem('todasLasCompras') || '[]'));
   }
 
@@ -63,11 +67,20 @@ export class ConsolaSys implements OnInit {
   }
 
   guardarEdicion() {
-    if (this.userService.actualizar(this.editForm.value.username, this.editForm.value)) {
-      alert('Usuario actualizado exitosamente.');
-      this.usuarioEditando.set(null);
-      this.cargarDatos();
-    }
+    const username = this.editForm.value.username;
+    
+    // El método actualizar ahora devuelve un Observable, por lo que usamos subscribe
+    this.userService.actualizar(username, this.editForm.value).subscribe({
+      next: () => {
+        alert('Usuario actualizado exitosamente.');
+        this.usuarioEditando.set(null);
+        this.cargarDatos(); // Recargamos la lista actualizada desde el servidor
+      },
+      error: (err) => {
+        console.error('Error al actualizar:', err);
+        alert('Hubo un error al guardar los cambios.');
+      }
+    });
   }
 
   eliminarCompra(id: number) {

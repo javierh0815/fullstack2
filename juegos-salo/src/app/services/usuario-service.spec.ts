@@ -1,8 +1,13 @@
+import { TestBed } from '@angular/core/testing';
 import { UsuarioService } from './usuario-service';
-import { Usuario } from '../models/usuario'; 
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { Usuario } from '../models/usuario';
+import { firstValueFrom } from 'rxjs';
 
 describe('UsuarioService', () => {
   let service: UsuarioService;
+  let httpMock: HttpTestingController;
 
   const usuarioMock: Usuario = {
     username: 'testuser',
@@ -15,65 +20,75 @@ describe('UsuarioService', () => {
   };
 
   beforeEach(() => {
-    service = new UsuarioService();
+    TestBed.configureTestingModule({
+      providers: [
+        UsuarioService,
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
+    });
+    service = TestBed.inject(UsuarioService);
+    httpMock = TestBed.inject(HttpTestingController);
     localStorage.clear();
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('debería inicializar correctamente', () => {
     expect(service).toBeTruthy();
   });
 
-  it('debería guardar un usuario y poder obtenerlo', () => {
-    service.guardar(usuarioMock);
+  it('debería guardar un usuario y poder obtenerlo', async () => {
+    const promise = firstValueFrom(service.guardar(usuarioMock));
     
-    const todos = service.obtenerTodos();
+    const req = httpMock.expectOne('http://localhost:3000/usuarios');
+    expect(req.request.method).toBe('POST');
+    req.flush(usuarioMock);
+
+    await promise;
+
+
+    const promiseGet = firstValueFrom(service.obtenerTodos());
+    const reqGet = httpMock.expectOne('http://localhost:3000/usuarios');
+    reqGet.flush([usuarioMock]);
+
+    const todos = await promiseGet;
     expect(todos.length).toBe(1);
     expect(todos[0].username).toBe('testuser');
   });
 
-  it('debería guardar un usuario incluso si no tiene confirmPassword', () => {
-
-    const usuarioSinConfirm: Usuario = {
-      username: 'user2',
-      password: '456',
-      nombre: 'User 2',
-      email: 'user2@test.com',
-      fechaNacimiento: '1995-05-05',
-      direccion: 'Av. Siempre Viva 456'
-    };
-
-    service.guardar(usuarioSinConfirm);
-    const todos = service.obtenerTodos();
-    expect(todos.length).toBe(1);
-    expect(todos[0].username).toBe('user2');
-    expect(todos[0].confirmPassword).toBeUndefined();
-  });
-
-  it('debería retornar true si el usuario existe', () => {
-    service.guardar(usuarioMock);
+  it('debería retornar true si el usuario existe', async () => {
+    const promise = firstValueFrom(service.existe('testuser'));
     
-    const resultado = service.existe('testuser');
-    expect(resultado).toBe(true);
+    const req = httpMock.expectOne('http://localhost:3000/usuarios');
+    req.flush([usuarioMock]);
+
+    const existe = await promise;
+    expect(existe).toBe(true);
   });
 
-  it('debería validar las credenciales correctamente', () => {
-    service.guardar(usuarioMock);
+  it('debería validar las credenciales correctamente', async () => {
+    const promise = firstValueFrom(service.validarCredenciales('testuser', '123'));
+    
+    const req = httpMock.expectOne('http://localhost:3000/usuarios');
+    req.flush([usuarioMock]);
 
-    const usuario = service.validarCredenciales('testuser', '123');
+    const usuario = await promise;
     expect(usuario).toBeDefined();
     expect(usuario?.username).toBe('testuser');
   });
 
+
   it('debería manejar el inicio de sesión', () => {
     service.iniciarSesion(usuarioMock);
-    
     const actual = service.obtenerUsuarioActual();
-    expect(actual.username).toBe('testuser');
+    expect(actual?.username).toBe('testuser');
   });
 
   it('debería cerrar sesión correctamente', () => {
     service.iniciarSesion(usuarioMock);
-
     service.cerrarSesion();
     expect(service.obtenerUsuarioActual()).toBeNull();
   });

@@ -29,19 +29,38 @@ export class Login {
   iniciarSesion() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      const usuarioEncontrado = this.usuarioService.validarCredenciales(username, password);
 
-      if (usuarioEncontrado) {
-        this.usuarioService.iniciarSesion(usuarioEncontrado);
+      
+      this.usuarioService.validarCredenciales(username, password).subscribe({
+        next: (usuarioEncontrado) => {
+          if (usuarioEncontrado) {
+           
+            this.usuarioService.iniciarSesion(usuarioEncontrado);
 
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
-        alert(`¡Bienvenido, ${usuarioEncontrado.nombre}!`);
-        this.router.navigateByUrl(returnUrl);
-      } else {
-        alert('Nombre de usuario o contraseña incorrectos');
-      }
+            alert(`¡Bienvenido, ${usuarioEncontrado.nombre}!`);
+            this.router.navigateByUrl(returnUrl);
+          } else {
+            
+            alert('Nombre de usuario o contraseña incorrectos');
+          }
+        },
+        error: (err) => {
+          console.error('Error al validar credenciales:', err);
+          alert('Ocurrió un error al intentar iniciar sesión.');
+        }
+      });
     }
   }
+
+
+
+
+
+
+
+
+
+
 }

@@ -1,78 +1,56 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { JsonFile } from './json-file';
 import { Usuario } from '../models/usuario';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsuarioService {
+    private jsonFile = inject(JsonFile);
+    private url = 'http://localhost:3000/usuarios';
 
-    obtenerTodos() {
-        return JSON.parse(localStorage.getItem('usuarios') || '[]');
+    obtenerTodos(): Observable<Usuario[]> {
+        return this.jsonFile.getAll<Usuario>(this.url);
     }
 
-    guardar(usuario: Usuario): void{
-        const usuarios = this.obtenerTodos();
-        usuarios.push(usuario);
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    guardar(usuario: Usuario): Observable<Usuario> {
+        return this.jsonFile.post<Usuario>(this.url, usuario);
     }
 
-
-    existe(username: string): boolean {
-        return this.obtenerTodos().some((usuario: Usuario) => usuario.username === username);
+    existe(username: string): Observable<boolean> {
+        return this.obtenerTodos().pipe(
+            map(usuarios => usuarios.some(u => u.username === username))
+        );
     }
 
-    validarCredenciales(username: string, password: string): Usuario | undefined {
-        const usuarios = this.obtenerTodos();
-        return usuarios.find((u: Usuario) => u.username === username && u.password === password);
+    validarCredenciales(username: string, password: string): Observable<Usuario | undefined> {
+        return this.obtenerTodos().pipe(
+            map(usuarios => usuarios.find(u => u.username === username && u.password === password))
+        );
     }
 
-    iniciarSesion(usuario: Usuario) {
-
+    iniciarSesion(usuario: Usuario): void {
         localStorage.setItem('usuarioActual', JSON.stringify(usuario));
     }
 
-    obtenerUsuarioActual() {
+    obtenerUsuarioActual(): Usuario | null {
         const usuario = localStorage.getItem('usuarioActual');
         return usuario ? JSON.parse(usuario) : null;
     }
 
-    cerrarSesion() {
+    cerrarSesion(): void {
         localStorage.removeItem('usuarioActual');
     }
 
+    actualizar(id: number | string, nuevosDatos: Partial<Usuario>): Observable<Usuario> {
 
-
-    actualizar(username: string, nuevosDatos: Partial<Usuario>): boolean {
-        const usuarios = this.obtenerTodos();
-        const index = usuarios.findIndex((u: Usuario) => u.username === username);
-    
-        if (index !== -1) {
-        
-            usuarios[index] = { ...usuarios[index], ...nuevosDatos };
-            localStorage.setItem('usuarios', JSON.stringify(usuarios));
-            this.iniciarSesion(usuarios[index]);
-            return true;
-        }
-        return false;
+        return this.jsonFile.put<Usuario>(this.url, id, nuevosDatos as Usuario);
     }
 
-
-    buscarPorEmail(email: string): Usuario | undefined {
-        const usuarios = this.obtenerTodos();
-        return usuarios.find((u: Usuario) => u.email === email);
+    buscarPorEmail(email: string): Observable<Usuario | undefined> {
+        return this.obtenerTodos().pipe(
+            map(usuarios => usuarios.find(u => u.email === email))
+        );
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
