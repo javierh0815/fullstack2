@@ -67,14 +67,20 @@ export class ConsolaSys implements OnInit {
   }
 
   guardarEdicion() {
+
+    if (this.usuarioSys()?.rol !== 'admin') {
+      alert("Acción no permitida.");
+      return;
+    }
+
     const username = this.editForm.value.username;
-    
+
 
     this.userService.actualizar(username, this.editForm.value).subscribe({
       next: () => {
         alert('Usuario actualizado exitosamente.');
         this.usuarioEditando.set(null);
-        this.cargarDatos(); 
+        this.cargarDatos();
       },
       error: (err) => {
         console.error('Error al actualizar:', err);
@@ -84,13 +90,20 @@ export class ConsolaSys implements OnInit {
   }
 
   eliminarCompra(id: number) {
-    if (this.usuarioSys()?.rol !== 'admin') return alert("Acción no permitida.");
+
+    if (this.usuarioSys()?.rol !== 'admin') {
+      return alert("Acción no permitida.");
+    }
     
     if (confirm('¿Estás seguro de eliminar esta compra?')) {
+
       let todasLasCompras = JSON.parse(localStorage.getItem('todasLasCompras') || '[]');
       todasLasCompras = todasLasCompras.filter((c: any) => c.id !== id);
+      
       localStorage.setItem('todasLasCompras', JSON.stringify(todasLasCompras));
-      this.cargarDatos();
+      
+
+      this.compras.set(todasLasCompras);
     }
   }
 
@@ -98,4 +111,8 @@ export class ConsolaSys implements OnInit {
     this.sysService.cerrarSesion(); 
     this.router.navigate(['/login-sys']);
   }
+
+
+
+
 }

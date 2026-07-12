@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { JsonFile } from './json-file';
 import { UsuarioSys } from '../models/usuario-sys';
+import { Observable, tap, map, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioSysService {
@@ -8,28 +9,29 @@ export class UsuarioSysService {
     private url = 'http://localhost:3000/usuariosSys'; 
     private usuariosSistema: UsuarioSys[] = [];
 
-    constructor() {
-        this.cargarUsuarios();
-    }
-
-
-    private cargarUsuarios() {
-        this.jsonFile.getAll<UsuarioSys>(this.url).subscribe({
-            next: (data) => this.usuariosSistema = data,
-            error: (err) => console.error('Error al cargar usuarios desde el servidor', err)
-        });
-    }
-
-    iniciarSesion(username: string, password: string): boolean {
-        const usuarioEncontrado = this.usuariosSistema.find(u =>
-            u.username === username && u.password === password
+    cargarUsuarios(): Observable<UsuarioSys[]> {
+        if (this.usuariosSistema.length > 0) return of(this.usuariosSistema);
+        
+        return this.jsonFile.getAll<UsuarioSys>(this.url).pipe(
+            tap(data => this.usuariosSistema = data)
         );
+    }
 
-        if (usuarioEncontrado) {
-            localStorage.setItem('usuarioActualSys', JSON.stringify(usuarioEncontrado));
-            return true;
-        }
-        return false;
+
+    iniciarSesion(username: string, password: string): Observable<boolean> {
+        return this.cargarUsuarios().pipe(
+            map(usuarios => {
+                const usuarioEncontrado = usuarios.find(u =>
+                    u.username === username && u.password === password
+                );
+
+                if (usuarioEncontrado) {
+                    localStorage.setItem('usuarioActualSys', JSON.stringify(usuarioEncontrado));
+                    return true;
+                }
+                return false;
+            })
+        );
     }
 
     obtenerUsuarioActual(): UsuarioSys | null {

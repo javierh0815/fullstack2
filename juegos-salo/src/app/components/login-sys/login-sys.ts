@@ -25,16 +25,28 @@ export class LoginSys {
     if (this.loginSysForm.valid) {
       const { username, password } = this.loginSysForm.value;
 
-      
-      const exito = this.sysService.iniciarSesion(username, password);
 
-      if (exito) {
-        alert('Inicio de sesión exitoso...');
-        this.router.navigate(['/consola-sys']);
-      } else {
-        alert('Credenciales incorrectas. Intentar de nuevo...');
-        this.loginSysForm.reset();
-      }
+      this.sysService.iniciarSesion(username, password).subscribe({
+        next: (exito) => {
+          if (exito) {
+            alert('Inicio de sesión exitoso...');
+            this.router.navigate(['/consola-sys']);
+          } else {
+            alert('Credenciales incorrectas. Intentar de nuevo...');
+            this.loginSysForm.reset();
+          }
+        },
+        error: (err) => {
+          console.error('Error al iniciar sesión:', err);
+          alert('Hubo un error de conexión con el servidor.');
+        }
+      });
     }
   }
+
+
+
+
+
+
 }
