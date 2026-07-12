@@ -47,7 +47,7 @@ export class ConsolaSys implements OnInit {
   }
 
   cargarDatos() {
-    // Suscripción al nuevo Observable de obtenerTodos()
+
     this.userService.obtenerTodos().subscribe({
       next: (data) => this.usuarios.set(data),
       error: (err) => console.error('Error al cargar usuarios:', err)
@@ -69,12 +69,12 @@ export class ConsolaSys implements OnInit {
   guardarEdicion() {
     const username = this.editForm.value.username;
     
-    // El método actualizar ahora devuelve un Observable, por lo que usamos subscribe
+
     this.userService.actualizar(username, this.editForm.value).subscribe({
       next: () => {
         alert('Usuario actualizado exitosamente.');
         this.usuarioEditando.set(null);
-        this.cargarDatos(); // Recargamos la lista actualizada desde el servidor
+        this.cargarDatos(); 
       },
       error: (err) => {
         console.error('Error al actualizar:', err);
