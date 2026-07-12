@@ -50,22 +50,31 @@ export class Registro {
   }
 
 
-  registrar(){
+  registrar() {
     if (this.registroForm.valid) {
       const { confirmPassword, ...datosUsuario } = this.registroForm.value;
 
-      if (this.usuarioService.existe(datosUsuario.username)) {
-        alert('El nombre de usuario ya existe, por favor elegir otro.')
-        return;
-      }
+      
+      this.usuarioService.existe(datosUsuario.username).subscribe(existe => {
+        if (existe) {
+          alert('El nombre de usuario ya existe, por favor elegir otro.');
+          return;
+        }
 
-      this.usuarioService.guardar(datosUsuario);
-      alert('Registro exitoso. Ahora puedes iniciar sesión.');
-      this.registroForm.reset();
+        
+        this.usuarioService.guardar(datosUsuario).subscribe({
+          next: () => {
+            alert('Registro exitoso. Ahora puedes iniciar sesión.');
+            this.registroForm.reset();
+          },
+          error: (err) => {
+            console.error('Error al registrar:', err);
+            alert('Hubo un error al procesar el registro.');
+          }
+        });
+      });
     }
   }
-
-
 
 
 

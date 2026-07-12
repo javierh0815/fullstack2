@@ -31,14 +31,24 @@ export class ModificarPerfil implements OnInit {
   modificar() {
     if (this.perfilForm.valid) {
       const user = this.usuarioService.obtenerUsuarioActual();
+      
       if (user) {
-        if (this.usuarioService.actualizar(user.username, this.perfilForm.value)) {
-          alert('Perfil modificado exitosamente');
-          this.router.navigate(['/cuenta-usuario']);
-        } else {
-          alert('Error al actualizar');
-        }
+        
+        this.usuarioService.actualizar(user.username, this.perfilForm.value).subscribe({
+          next: () => {
+            alert('Perfil modificado exitosamente');
+            this.router.navigate(['/cuenta-usuario']);
+          },
+          error: (err) => {
+            console.error('Error al actualizar:', err);
+            alert('Error al actualizar el perfil en el servidor');
+          }
+        });
       }
     }
   }
+
+
+
+
 }

@@ -25,17 +25,24 @@ export class RecuperaContra {
   enviarInstrucciones() {
     if (this.recuperarForm.valid) {
       const email = this.recuperarForm.get('email')?.value;
-      const usuarioEncontrado = this.usuarioService.buscarPorEmail(email);
 
-      if(usuarioEncontrado) {
-        alert('Se ha enviado un correo electrónico con instrucciones a ' + email);
-        this.recuperarForm.reset();
-      }else{
-        alert('No se encontró ningún correo electrónico');
-      }
+      
+      this.usuarioService.buscarPorEmail(email).subscribe({
+        next: (usuarioEncontrado) => {
+          if (usuarioEncontrado) {
+            alert('Se ha enviado un correo electrónico con instrucciones a ' + email);
+            this.recuperarForm.reset();
+          } else {
+            alert('No se encontró ningún correo electrónico');
+          }
+        },
+        error: (err) => {
+          console.error('Error al buscar email:', err);
+          alert('Hubo un error al procesar tu solicitud.');
+        }
+      });
     }
   }
-
 
 
 
