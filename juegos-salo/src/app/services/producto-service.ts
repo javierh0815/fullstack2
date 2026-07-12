@@ -7,7 +7,7 @@ import { Producto } from '../models/producto'
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
     private jsonFile = inject(JsonFile);
-    private url = '/json/productos.json';
+    private url = 'http://localhost:3000/productos';
 
 
     obtenerProductos(): Observable<Producto[]> {

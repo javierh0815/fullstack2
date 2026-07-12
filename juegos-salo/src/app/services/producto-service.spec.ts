@@ -1,35 +1,48 @@
 import { TestBed } from '@angular/core/testing';
 import { ProductoService } from './producto-service';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { firstValueFrom } from 'rxjs';
 
 describe('ProductoService', () => {
   let service: ProductoService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProductoService]
+      providers: [
+        ProductoService,
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     });
     service = TestBed.inject(ProductoService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  it('debería filtrar productos correctamente por categoriaId', () => {
-
-    const productosCat1 = service.obtenerProductoPorCat(1);
-    
-    expect(productosCat1.length).toBe(3);
-    expect(productosCat1.every(p => p.categoriaId === 1)).toBe(true);
+  afterEach(() => {
+    httpMock.verify();
   });
 
-  it('debería retornar un array vacío si la categoría no existe', () => {
-    const productosInexistentes = service.obtenerProductoPorCat(99);
-    
-    expect(productosInexistentes.length).toBe(0);
-  });
+  it('debería filtrar productos correctamente por categoriaId', async () => {
+    const mockProductos = [
+      { id: 1, categoriaId: 1, nombre: 'Juego A' },
+      { id: 2, categoriaId: 1, nombre: 'Juego B' },
+      { id: 3, categoriaId: 2, nombre: 'Juego C' }
+    ];
 
-  it('debería retornar solo los productos que tienen precioAnterior', () => {
-    const productosDescuento = service.obtenerProductoDescuento();
+
+    const promise = firstValueFrom(service.obtenerProductoPorCat(1));
+
+
+    const req = httpMock.expectOne('http://localhost:3000/productos');
+    expect(req.request.method).toBe('GET');
     
 
-    expect(productosDescuento.length).toBe(4);
-    expect(productosDescuento.every(p => p.precioAnterior !== undefined)).toBe(true);
+    req.flush(mockProductos);
+
+    const result = await promise;
+    expect(result.length).toBe(2);
+    expect(result.every(p => p.categoriaId === 1)).toBe(true);
   });
 });

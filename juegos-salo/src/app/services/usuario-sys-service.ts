@@ -5,14 +5,18 @@ import { UsuarioSys } from '../models/usuario-sys';
 @Injectable({ providedIn: 'root' })
 export class UsuarioSysService {
     private jsonFile = inject(JsonFile);
-    private url = '/json/usuariosSys.json';
+    private url = 'http://localhost:3000/usuariosSys'; 
     private usuariosSistema: UsuarioSys[] = [];
 
     constructor() {
+        this.cargarUsuarios();
+    }
 
+
+    private cargarUsuarios() {
         this.jsonFile.getAll<UsuarioSys>(this.url).subscribe({
             next: (data) => this.usuariosSistema = data,
-            error: (err) => console.error('Error al cargar usuarios del sistema', err)
+            error: (err) => console.error('Error al cargar usuarios desde el servidor', err)
         });
     }
 
@@ -27,7 +31,6 @@ export class UsuarioSysService {
         }
         return false;
     }
-
 
     obtenerUsuarioActual(): UsuarioSys | null {
         const usuario = localStorage.getItem('usuarioActualSys');

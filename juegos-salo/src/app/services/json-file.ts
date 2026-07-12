@@ -16,7 +16,17 @@ export class JsonFile {
         )
     }
 
+    post<T>(url: string, data: T): Observable<T> {
+        return this.http.post<T>(url, data);
+    }
 
+    put<T>(url: string, id: number | string, data: T): Observable<T> {
+        return this.http.put<T>(`${url}/${id}`, data);
+    }
+
+    delete(url: string, id: number | string): Observable<void> {
+        return this.http.delete<void>(`${url}/${id}`);
+    }
 
 
 
