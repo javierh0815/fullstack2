@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { JsonFile } from './json-file';
 import { Usuario } from '../models/usuario';
-import { map, Observable } from 'rxjs';
+import { map, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -9,6 +9,10 @@ import { map, Observable } from 'rxjs';
 export class UsuarioService {
     private jsonFile = inject(JsonFile);
     private url = 'http://localhost:3000/usuarios';
+
+
+    private usuarioSubject = new BehaviorSubject<Usuario | null>(this.obtenerUsuarioActual());
+    public usuario$ = this.usuarioSubject.asObservable();
 
     obtenerTodos(): Observable<Usuario[]> {
         return this.jsonFile.getAll<Usuario>(this.url);
@@ -32,6 +36,7 @@ export class UsuarioService {
 
     iniciarSesion(usuario: Usuario): void {
         localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+        this.usuarioSubject.next(usuario);
     }
 
     obtenerUsuarioActual(): Usuario | null {
@@ -41,10 +46,10 @@ export class UsuarioService {
 
     cerrarSesion(): void {
         localStorage.removeItem('usuarioActual');
+        this.usuarioSubject.next(null);
     }
 
     actualizar(id: number | string, nuevosDatos: Partial<Usuario>): Observable<Usuario> {
-
         return this.jsonFile.put<Usuario>(this.url, id, nuevosDatos as Usuario);
     }
 

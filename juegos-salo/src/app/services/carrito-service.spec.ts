@@ -50,13 +50,14 @@ describe('CarritoService', () => {
     expect(alertSpy).toHaveBeenCalled();
   });
 
-  it('debería incrementar el ID de compra secuencialmente', () => {
-    service.agregarProducto({ id: 1, nombre: 'A' });
-    service.agregarProducto({ id: 2, nombre: 'B' });
-
+  it('debería agregar productos al carrito local sin ID asignado', () => {
+    const producto = { id: 1, nombre: 'Juego', precio: 1000 };
+    service.agregarProducto(producto);
+    
     const carrito = service.obtenerCarritoUsuario();
-    expect(carrito[0].id).toBe(1);
-    expect(carrito[1].id).toBe(2);
+  
+    expect(carrito[0].id).toBeUndefined(); 
+    expect(carrito[0].nombre).toBe('Juego');
   });
 
 

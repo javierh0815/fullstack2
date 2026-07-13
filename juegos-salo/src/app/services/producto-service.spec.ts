@@ -21,27 +21,31 @@ describe('ProductoService', () => {
   });
 
   afterEach(() => {
+
     httpMock.verify();
   });
 
-  it('debería filtrar productos correctamente por categoriaId', async () => {
-    const mockProductos = [
+  it('debería filtrar productos correctamente por categoriaId mediante la API', async () => {
+    const mockProductosFiltrados = [
       { id: 1, categoriaId: 1, nombre: 'Juego A' },
-      { id: 2, categoriaId: 1, nombre: 'Juego B' },
-      { id: 3, categoriaId: 2, nombre: 'Juego C' }
+      { id: 2, categoriaId: 1, nombre: 'Juego B' }
     ];
 
 
     const promise = firstValueFrom(service.obtenerProductoPorCat(1));
 
 
-    const req = httpMock.expectOne('http://localhost:3000/productos');
-    expect(req.request.method).toBe('GET');
+    const req = httpMock.expectOne('http://localhost:3000/productos?categoriaId=1');
     
 
-    req.flush(mockProductos);
+    expect(req.request.method).toBe('GET');
+
+    req.flush(mockProductosFiltrados);
+
 
     const result = await promise;
+    
+
     expect(result.length).toBe(2);
     expect(result.every(p => p.categoriaId === 1)).toBe(true);
   });

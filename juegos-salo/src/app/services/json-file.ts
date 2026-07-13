@@ -10,10 +10,8 @@ export class JsonFile {
         return this.http.get<T[]>(url);
     }
 
-    getById<T extends { id: number | string }>(url: string, id:number | string): Observable<T | undefined> {
-        return this.http.get<T[]>(url).pipe(
-            map(items => items.find(item => item.id === id))
-        )
+    getById<T>(url: string, id: number | string): Observable<T> {
+        return this.http.get<T>(`${url}/${id}`);
     }
 
     post<T>(url: string, data: T): Observable<T> {

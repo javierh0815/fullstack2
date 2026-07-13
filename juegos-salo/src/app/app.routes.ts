@@ -30,26 +30,7 @@ export const routes: Routes = [
         path: 'recupera-contra',
         loadComponent: () => import('./components/recupera-contra/recupera-contra').then(m => m.RecuperaContra)
     },
-    /*
-    {
-        path: 'carrito',
-        loadComponent: () => import('./components/carrito/carrito').then(m => m.CarritoComponent),
-        canActivate: [authGuard]
-    },
-
-    {
-        path: 'cuenta-usuario',
-        loadComponent: () => import('./components/cuenta-usuario/cuenta-usuario').then(m => m.CuentaUsuario),
-        canActivate: [authGuard]
-    },
-
-    {
-        path: 'modifica-perfil',
-        loadComponent: () => import('./components/modifica-perfil/modifica-perfil').then(m => m.ModificarPerfil),
-        canActivate: [authGuard]
-
-    },
-    */
+    
     {
         path: '',
         canActivate: [authGuard],
