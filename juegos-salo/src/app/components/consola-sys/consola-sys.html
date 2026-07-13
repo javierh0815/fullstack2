@@ -1,17 +1,26 @@
 <main class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <button class="btn btn-primary me-2" (click)="mostrarSeccion('usuarios')">Gestionar Usuarios</button>
-            <button class="btn btn-primary" (click)="mostrarSeccion('carritos')">Gestionar Compras</button>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+        <div class="btn-group">
+            <button class="btn btn-outline-primary" [class.active]="seccionActual() === 'usuarios'" (click)="mostrarSeccion('usuarios')">
+                <i class="bi bi-people"></i> Usuarios
+            </button>
+            <button class="btn btn-outline-primary" [class.active]="seccionActual() === 'carritos'" (click)="mostrarSeccion('carritos')">
+                <i class="bi bi-cart"></i> Compras
+            </button>
+            <button class="btn btn-outline-primary" [class.active]="seccionActual() === 'productos'" (click)="mostrarSeccion('productos')">
+                <i class="bi bi-box-seam"></i> Productos
+            </button>
         </div>
         
         <button class="btn btn-danger" (click)="cerrarSesion()">Cerrar Sesión</button>
     </div>
 
+
     @if (seccionActual() === 'usuarios') {
-        <section>
+        <section class="fade-in">
             <h3>Usuarios Registrados</h3>
-            <table class="table">
+            <table class="table table-hover align-middle">
                 <thead class="table-dark">
                     <tr><th>Username</th><th>Nombre</th><th>Email</th><th>Acciones</th></tr>
                 </thead>
@@ -22,7 +31,7 @@
                             <td>
                                 @if (usuarioSys()?.rol === 'admin') {
                                     <button class="btn btn-warning btn-sm" (click)="abrirEdicion(u)">Editar</button>
-                                } @else { <span class="text-muted">Solo lectura</span> }
+                                } @else { <span class="badge bg-secondary">Solo lectura</span> }
                             </td>
                         </tr>
                     }
@@ -30,38 +39,69 @@
             </table>
 
             @if (usuarioEditando()) {
-                <div class="card p-3">
-                    <h4>Editar Usuario</h4>
-                    <form [formGroup]="editForm" (ngSubmit)="guardarEdicion()">
-                        <input formControlName="username" class="form-control" readonly>
-                        <input formControlName="nombre" class="form-control" placeholder="Nombre">
-                        <input formControlName="email" class="form-control" placeholder="Email">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-secondary" (click)="usuarioEditando.set(null)">Cancelar</button>
+                <div class="card p-4 mt-3 border-warning">
+                    <h4>Editar Usuario: <small class="text-muted">{{usuarioEditando().username}}</small></h4>
+                    <form [formGroup]="editForm" (ngSubmit)="guardarEdicion()" class="row g-3">
+                        <div class="col-md-4"><input formControlName="nombre" class="form-control" placeholder="Nombre"></div>
+                        <div class="col-md-4"><input formControlName="email" class="form-control" placeholder="Email"></div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success me-2">Guardar</button>
+                            <button type="button" class="btn btn-secondary" (click)="usuarioEditando.set(null)">Cancelar</button>
+                        </div>
                     </form>
                 </div>
             }
         </section>
     }
 
+
     @if (seccionActual() === 'carritos') {
         <section>
             <h3>Registro de Compras</h3>
-            <table class="table">
+            <table class="table table-striped">
                 <thead class="table-dark">
                     <tr><th>ID</th><th>Usuario</th><th>Producto</th><th>Precio</th><th>Fecha</th><th>Acciones</th></tr>
                 </thead>
                 <tbody>
                     @for (c of compras(); track c.id) {
                         <tr>
-                            <td>#{{c.id}}</td><td>{{c.usuario}}</td><td>{{c.nombre}}</td>
-                            <td>${{c.precio.toLocaleString()}}</td><td>{{c.fecha | date:'shortDate'}}</td>
+                            <td><strong>#{{c.id}}</strong></td><td>{{c.usuario}}</td><td>{{c.nombre}}</td>
+                            <td>${{c.precio.toLocaleString()}}</td><td>{{c.fecha | date:'short'}}</td>
                             <td>
                                 @if (usuarioSys()?.rol === 'admin') {
-                                    <button class="btn btn-danger btn-sm" (click)="eliminarCompra(c.id)">Eliminar</button>
+                                    <button class="btn btn-outline-danger btn-sm" (click)="eliminarCompra(c.id)">Eliminar</button>
                                 }
                             </td>
                         </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    }
+
+
+    @if (seccionActual() === 'productos') {
+        <section>
+            <h3>Gestión de Productos</h3>
+            <div class="input-group mb-4 shadow-sm">
+                <input type="number" class="form-control" [(ngModel)]="idBusqueda" placeholder="Buscar producto por ID...">
+                <button class="btn btn-primary" (click)="buscarProductoPorId()">Buscar</button>
+                <button class="btn btn-secondary" (click)="cargarDatos()">Ver todos</button>
+            </div>
+
+            <table class="table table-hover">
+                <thead class="table-info">
+                    <tr><th>ID</th><th>Nombre</th><th>Precio</th></tr>
+                </thead>
+                <tbody>
+                    @for (p of productos(); track p.id) {
+                        <tr>
+                            <td>{{p.id}}</td>
+                            <td>{{p.nombre}}</td>
+                            <td>${{p.precio.toLocaleString()}}</td>
+                        </tr>
+                    } @empty {
+                        <tr><td colspan="3" class="text-center">No se encontraron productos.</td></tr>
                     }
                 </tbody>
             </table>
