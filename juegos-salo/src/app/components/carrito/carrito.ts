@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../services/carrito-service';
-import { Carrito } from '../../models/carrito';
+import { UsuarioService } from '../../services/usuario-service';
 
 @Component({
   selector: 'app-carrito',
@@ -13,16 +13,32 @@ import { Carrito } from '../../models/carrito';
 
 export class CarritoComponent implements OnInit {
   private carritoService = inject(CarritoService);
-  items: Carrito[] = [];
+  private usuarioService = inject(UsuarioService); 
+  items: any[] = [];
   total: number = 0;
 
-  ngOnInit() {
-    this.items = this.carritoService.obtenerCarritoUsuario();
-    this.calcularTotal();
-    
+ngOnInit() {
+  
+  const usuarioActual = this.usuarioService.obtenerUsuarioActual();
+
+  if (usuarioActual) {
+    this.cargarCarrito(usuarioActual.username);
+  } else {
+    console.error("No hay usuario logueado al iniciar el componente");
   }
+}
+
+cargarCarrito(username: string) {
+  this.carritoService.obtenerTodosLosCarritos().subscribe({
+    next: (todos) => {
+
+      this.items = todos.filter(c => c.usuario === username);
+      this.calcularTotal();
+    }
+  });
+}
 
   private calcularTotal() {
-    this.total = this.items.reduce((sum,item) => sum + item.precio, 0);
+    this.total = this.items.reduce((sum, item) => sum + (item.precio || 0), 0);
   }
 }

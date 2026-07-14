@@ -9,7 +9,9 @@ describe('UsuarioService', () => {
   let service: UsuarioService;
   let httpMock: HttpTestingController;
 
+
   const usuarioMock: Usuario = {
+    id: 1, 
     username: 'testuser',
     password: '123',
     nombre: 'Test User',
@@ -45,10 +47,10 @@ describe('UsuarioService', () => {
     
     const req = httpMock.expectOne('http://localhost:3000/usuarios');
     expect(req.request.method).toBe('POST');
+  
     req.flush(usuarioMock);
 
     await promise;
-
 
     const promiseGet = firstValueFrom(service.obtenerTodos());
     const reqGet = httpMock.expectOne('http://localhost:3000/usuarios');
@@ -56,6 +58,7 @@ describe('UsuarioService', () => {
 
     const todos = await promiseGet;
     expect(todos.length).toBe(1);
+    expect(todos[0].id).toBe(1); 
     expect(todos[0].username).toBe('testuser');
   });
 
@@ -63,7 +66,7 @@ describe('UsuarioService', () => {
     const promise = firstValueFrom(service.existe('testuser'));
     
     const req = httpMock.expectOne('http://localhost:3000/usuarios');
-    req.flush([usuarioMock]);
+    req.flush([usuarioMock]); 
 
     const existe = await promise;
     expect(existe).toBe(true);
@@ -73,17 +76,18 @@ describe('UsuarioService', () => {
     const promise = firstValueFrom(service.validarCredenciales('testuser', '123'));
     
     const req = httpMock.expectOne('http://localhost:3000/usuarios');
-    req.flush([usuarioMock]);
+    req.flush([usuarioMock]); 
 
     const usuario = await promise;
     expect(usuario).toBeDefined();
+    expect(usuario?.id).toBe(1); 
     expect(usuario?.username).toBe('testuser');
   });
-
 
   it('debería manejar el inicio de sesión', () => {
     service.iniciarSesion(usuarioMock);
     const actual = service.obtenerUsuarioActual();
+    expect(actual?.id).toBe(1);
     expect(actual?.username).toBe('testuser');
   });
 

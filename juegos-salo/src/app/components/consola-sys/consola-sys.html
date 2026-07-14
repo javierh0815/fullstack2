@@ -16,8 +16,8 @@
         <button class="btn btn-danger" (click)="cerrarSesion()">Cerrar Sesión</button>
     </div>
 
-
     @if (seccionActual() === 'usuarios') {
+
         <section class="fade-in">
             <h3>Usuarios Registrados</h3>
             <table class="table table-hover align-middle">
@@ -54,8 +54,8 @@
         </section>
     }
 
-
     @if (seccionActual() === 'carritos') {
+
         <section>
             <h3>Registro de Compras</h3>
             <table class="table table-striped">
@@ -79,17 +79,11 @@
         </section>
     }
 
-
     @if (seccionActual() === 'productos') {
-        <section>
+        <section class="fade-in">
             <h3>Gestión de Productos</h3>
-            <div class="input-group mb-4 shadow-sm">
-                <input type="number" class="form-control" [(ngModel)]="idBusqueda" placeholder="Buscar producto por ID...">
-                <button class="btn btn-primary" (click)="buscarProductoPorId()">Buscar</button>
-                <button class="btn btn-secondary" (click)="cargarDatos()">Ver todos</button>
-            </div>
-
-            <table class="table table-hover">
+            
+            <table class="table table-hover align-middle mt-3">
                 <thead class="table-info">
                     <tr><th>ID</th><th>Nombre</th><th>Precio</th></tr>
                 </thead>
@@ -101,10 +95,12 @@
                             <td>${{p.precio.toLocaleString()}}</td>
                         </tr>
                     } @empty {
-                        <tr><td colspan="3" class="text-center">No se encontraron productos.</td></tr>
+                        <tr><td colspan="3" class="text-center text-muted">No se encontraron productos.</td></tr>
                     }
                 </tbody>
             </table>
         </section>
     }
+
+
 </main>

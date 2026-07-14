@@ -1,64 +1,48 @@
 import { TestBed } from '@angular/core/testing';
 import { CarritoService } from './carrito-service';
 import { UsuarioService } from './usuario-service';
+import { JsonFile } from './json-file'; 
+import { of,firstValueFrom } from 'rxjs';
 import { vi } from 'vitest';
 
 describe('CarritoService', () => {
   let service: CarritoService;
   let usuarioServiceSpy: any;
+  let jsonFileSpy: any;
 
   beforeEach(() => {
-
-    localStorage.clear();
-
-
     usuarioServiceSpy = {
       obtenerUsuarioActual: vi.fn().mockReturnValue({ username: 'testuser' })
+    };
+
+  
+    jsonFileSpy = {
+      post: vi.fn().mockReturnValue(of({ success: true })),
+      getAll: vi.fn().mockReturnValue(of([])) 
     };
 
     TestBed.configureTestingModule({
       providers: [
         CarritoService,
-        { provide: UsuarioService, useValue: usuarioServiceSpy }
+        { provide: UsuarioService, useValue: usuarioServiceSpy },
+        { provide: JsonFile, useValue: jsonFileSpy }
       ]
     });
     service = TestBed.inject(CarritoService);
   });
 
-  it('debería agregar un producto al carrito y limpiar el precio', () => {
-    const producto = { id: 1, nombre: 'Juego Pro', precio: '1.200' }; 
-    service.agregarProducto(producto);
+it('debería agregar un producto', async () => {
+  const producto = { id: 1, nombre: 'Test', precio: '100' };
+  
+  await firstValueFrom(service.agregarProducto(producto));
+  
+  expect(jsonFileSpy.post).toHaveBeenCalled();
+});
 
-    const carrito = service.obtenerCarritoUsuario();
-    
-    expect(carrito.length).toBe(1);
-    expect(carrito[0].nombre).toBe('Juego Pro');
-    expect(carrito[0].precio).toBe(1200); 
-    expect(carrito[0].usuario).toBe('testuser');
-  });
-
-  it('no debería agregar producto si no hay usuario logueado', () => {
-
+  it('debería lanzar error si no hay usuario logueado', () => {
     usuarioServiceSpy.obtenerUsuarioActual.mockReturnValue(null);
     
 
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
-
-    service.agregarProducto({ id: 1, nombre: 'Juego' });
-
-    expect(service.obtenerCarritoUsuario().length).toBe(0);
-    expect(alertSpy).toHaveBeenCalled();
+    expect(() => service.agregarProducto({ id: 1 })).toThrow();
   });
-
-  it('debería agregar productos al carrito local sin ID asignado', () => {
-    const producto = { id: 1, nombre: 'Juego', precio: 1000 };
-    service.agregarProducto(producto);
-    
-    const carrito = service.obtenerCarritoUsuario();
-  
-    expect(carrito[0].id).toBeUndefined(); 
-    expect(carrito[0].nombre).toBe('Juego');
-  });
-
-
 });

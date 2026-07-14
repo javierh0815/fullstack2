@@ -30,13 +30,25 @@ export class ModificarPerfil implements OnInit {
 
   modificar() {
     if (this.perfilForm.valid) {
-      const user = this.usuarioService.obtenerUsuarioActual();
+      const userActual = this.usuarioService.obtenerUsuarioActual();
+
       
-      if (user) {
-        
-        this.usuarioService.actualizar(user.username, this.perfilForm.value).subscribe({
-          next: () => {
+      if (userActual && userActual.id) {
+
+
+        const datosFinales = { 
+          ...userActual, 
+          ...this.perfilForm.value 
+        };
+
+
+        this.usuarioService.actualizar(userActual.id, datosFinales).subscribe({
+          next: (usuarioActualizado) => {
             alert('Perfil modificado exitosamente');
+
+  
+            localStorage.setItem('usuarioActual', JSON.stringify(usuarioActualizado));
+
             this.router.navigate(['/cuenta-usuario']);
           },
           error: (err) => {
@@ -44,6 +56,8 @@ export class ModificarPerfil implements OnInit {
             alert('Error al actualizar el perfil en el servidor');
           }
         });
+      } else {
+        alert('Error: No se pudo identificar al usuario actual.');
       }
     }
   }

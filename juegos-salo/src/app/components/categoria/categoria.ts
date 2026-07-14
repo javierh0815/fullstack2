@@ -58,10 +58,12 @@ export class Categoria implements OnInit {
         });
     }
 
-    agregarAlCarrito(producto: Producto) {
-        this.carritoService.agregarProducto(producto);
-        alert(`${producto.nombre} ha sido agregado al carrito.`);
-    }
+agregarAlCarrito(producto: Producto) {
+    this.carritoService.agregarProducto(producto).subscribe({
+        next: () => alert(`${producto.nombre} agregado al carrito.`),
+        error: (err) => console.error('Error al agregar:', err)
+    });
+}
 
 
 

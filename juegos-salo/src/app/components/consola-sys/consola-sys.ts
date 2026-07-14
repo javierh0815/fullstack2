@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormsModule } from '@angul
 import { UsuarioSysService } from '../../services/usuario-sys-service';
 import { UsuarioService } from '../../services/usuario-service';
 import { ProductoService } from '../../services/producto-service';
-import { CarritoService } from '../../services/carrito-service'; // Asegúrate de importar el servicio de carrito
+import { CarritoService } from '../../services/carrito-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,12 +24,12 @@ export class ConsolaSys implements OnInit {
 
   usuarioSys = signal<any>(null);
   seccionActual = signal<'usuarios' | 'carritos' | 'productos'>('usuarios');
+  
   editForm: FormGroup;
   
   usuarios = signal<any[]>([]);
   compras = signal<any[]>([]);
   productos = signal<any[]>([]);
-  idBusqueda = signal<string>('');
   usuarioEditando = signal<any | null>(null);
 
   constructor() {
@@ -43,6 +43,7 @@ export class ConsolaSys implements OnInit {
   ngOnInit() {
     const usuario = this.sysService.obtenerUsuarioActual();
     if (!usuario) {
+      alert('Debes iniciar sesión para acceder al sistema.');
       this.router.navigate(['/login-sys']);
       return;
     }
@@ -54,19 +55,10 @@ export class ConsolaSys implements OnInit {
     this.userService.obtenerTodos().subscribe(data => this.usuarios.set(data));
     this.prodService.obtenerProductos().subscribe(data => this.productos.set(data));
     
-    // Carga de compras desde el servidor (reemplazando el localStorage antiguo)
-    this.carritoService.obtenerHistorialCarrito().subscribe(data => this.compras.set(data));
-  }
-
-  buscarProductoPorId() {
-    const id = Number(this.idBusqueda());
-    if (!id) {
-      this.prodService.obtenerProductos().subscribe(data => this.productos.set(data));
-      return;
-    }
-    this.prodService.obtenerProductoPorCat(id).subscribe({
-      next: (p) => this.productos.set([p]),
-      error: () => { alert('Producto no encontrado'); this.productos.set([]); }
+   
+    this.carritoService.obtenerTodosLosCarritos().subscribe({
+      next: (data) => this.compras.set(data),
+      error: (err) => console.error('Error cargando historial:', err)
     });
   }
 
@@ -74,15 +66,41 @@ export class ConsolaSys implements OnInit {
     this.seccionActual.set(seccion);
   }
 
-  // ... métodos de edición y eliminación (mantenidos igual) ...
-  abrirEdicion(u: any) { this.usuarioEditando.set(u); this.editForm.patchValue(u); }
+  abrirEdicion(u: any) { 
+    if (this.usuarioSys()?.rol !== 'admin') return alert("Acción no permitida.");
+    this.usuarioEditando.set(u); 
+    this.editForm.patchValue(u); 
+  }
   
   guardarEdicion() {
-    this.userService.actualizar(this.editForm.value.username, this.editForm.value).subscribe(() => {
-      this.usuarioEditando.set(null);
-      this.cargarDatos();
+    if (this.usuarioSys()?.rol !== 'admin') return alert("Acción no permitida.");
+    
+    this.userService.actualizar(this.editForm.value.username, this.editForm.value).subscribe({
+      next: () => {
+        alert('Usuario actualizado exitosamente.');
+        this.usuarioEditando.set(null);
+        this.cargarDatos();
+      },
+      error: (err) => console.error(err)
     });
   }
 
-  cerrarSesion() { this.sysService.cerrarSesion(); this.router.navigate(['/login-sys']); }
+  eliminarCompra(id: number) {
+    if (this.usuarioSys()?.rol !== 'admin') return alert("Acción no permitida.");
+    
+    if (confirm('¿Estás seguro de eliminar esta compra?')) {
+      this.carritoService.eliminarItem(id).subscribe({
+        next: () => {
+          alert('Compra eliminada.');
+          this.cargarDatos();
+        },
+        error: (err) => console.error(err)
+      });
+    }
+  }
+
+  cerrarSesion() { 
+    this.sysService.cerrarSesion(); 
+    this.router.navigate(['/login-sys']); 
+  }
 }
