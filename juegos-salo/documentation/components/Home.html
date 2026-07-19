@@ -274,6 +274,24 @@
 
 </section>
 
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/home/home.ts:17</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -304,12 +322,12 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>signal&lt;Producto[]&gt;(this.productoService.obtenerProductoDescuento())</code>
+                        <i>Default value : </i><code>signal&lt;Producto[]&gt;([])</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/home/home.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/home/home.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -368,11 +386,20 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 })
 export class Home {
   private productoService &#x3D; inject(ProductoService);
-  productosDescuento &#x3D; signal&lt;Producto[]&gt;(this.productoService.obtenerProductoDescuento());
+  
 
+  productosDescuento &#x3D; signal&lt;Producto[]&gt;([]);
 
-}
-</code></pre>
+  constructor() {
+
+    this.productoService.obtenerProductoDescuento().subscribe({
+      next: (data) &#x3D;&gt; {
+        this.productosDescuento.set(data);
+      },
+      error: (err) &#x3D;&gt; console.error(&#x27;Error al cargar ofertas&#x27;, err)
+    });
+  }
+}</code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
@@ -433,7 +460,7 @@ export class Home {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><main class="container py-5">    <h2 class="text-center text-white mb-5">¡Descuentos!</h2>        <div class="row g-4 justify-content-center">        @for (prod of productosDescuento(); track prod.id) {            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">                <article class="tarjeta-juego w-100">                    <img [src]="prod.imagen" [alt]="prod.nombre">                    <h3>{{ prod.nombre }}</h3>                    <p>{{ prod.descripcion }}</p>                    <div class="precio-contenedor">                        <s class="precio-antiguo">${{ prod.precioAnterior }}</s>                        <span class="precio">${{ prod.precio }}</span>                        <span class="descuento">                            -{{ (((prod.precioAnterior! - prod.precio) / prod.precioAnterior!) * 100) | number:\'1.0-0\' }}%!                        </span>                    </div>                </article>            </div>        }    </div></main></div>'
-    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Home'};
 </script>

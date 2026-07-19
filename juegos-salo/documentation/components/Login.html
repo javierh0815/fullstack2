@@ -497,21 +497,40 @@ export class Login {
   iniciarSesion() {
     if (this.loginForm.valid) {
       const { username, password } &#x3D; this.loginForm.value;
-      const usuarioEncontrado &#x3D; this.usuarioService.validarCredenciales(username, password);
 
-      if (usuarioEncontrado) {
-        this.usuarioService.iniciarSesion(usuarioEncontrado);
+      
+      this.usuarioService.validarCredenciales(username, password).subscribe({
+        next: (usuarioEncontrado) &#x3D;&gt; {
+          if (usuarioEncontrado) {
+           
+            this.usuarioService.iniciarSesion(usuarioEncontrado);
 
+            const returnUrl &#x3D; this.route.snapshot.queryParams[&#x27;returnUrl&#x27;] || &#x27;/&#x27;;
 
-        const returnUrl &#x3D; this.route.snapshot.queryParams[&#x27;returnUrl&#x27;] || &#x27;/&#x27;;
-
-        alert(&#x60;¡Bienvenido, ${usuarioEncontrado.nombre}!&#x60;);
-        this.router.navigateByUrl(returnUrl);
-      } else {
-        alert(&#x27;Nombre de usuario o contraseña incorrectos&#x27;);
-      }
+            alert(&#x60;¡Bienvenido, ${usuarioEncontrado.nombre}!&#x60;);
+            this.router.navigateByUrl(returnUrl);
+          } else {
+            
+            alert(&#x27;Nombre de usuario o contraseña incorrectos&#x27;);
+          }
+        },
+        error: (err) &#x3D;&gt; {
+          console.error(&#x27;Error al validar credenciales:&#x27;, err);
+          alert(&#x27;Ocurrió un error al intentar iniciar sesión.&#x27;);
+        }
+      });
     }
   }
+
+
+
+
+
+
+
+
+
+
 }</code></pre>
     </div>
 
@@ -578,7 +597,7 @@ export class Login {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="juegos-grid justify-content-center">  <div class="w-100 px-3" style="max-width: 400px;">    <h2 class="text-center text-white mb-4">Iniciar Sesión</h2>    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="w-100">      <div class="mb-3">        <label class="form-label text-white">Nombre de Usuario</label>        <input type="text" class="form-control" formControlName="username" placeholder="Tu usuario">      </div>      <div class="mb-3">        <label class="form-label text-white">Contraseña</label>        <input type="password" class="form-control" formControlName="password" placeholder="Tu contraseña">      </div>      <button type="submit" class="btn btn-primary w-100 mb-2" [disabled]="loginForm.invalid">          Ingresar      </button>            <div class="text-center">          <button type="button" class="btn btn-link text-white" routerLink="/recupera-contra">              ¿Olvidaste tu contraseña?          </button>      </div>    </form>  </div></div></div>'
-    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Login'};
 </script>

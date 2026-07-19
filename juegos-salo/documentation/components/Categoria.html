@@ -395,8 +395,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/app/components/categoria/categoria.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/components/categoria/categoria.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -691,10 +691,22 @@ export class Categoria implements OnInit {
         this.route.paramMap.subscribe(params &#x3D;&gt; {
             const id &#x3D; params.get(&#x27;id&#x27;);
             const categoria &#x3D; this.listaCategorias.find(cat &#x3D;&gt; cat.id &#x3D;&#x3D;&#x3D; id);
+
             if (categoria) {
                 this.nombreCategoria.set(categoria.nombre);
                 const idNumero &#x3D; Number(id);
-                this.productos.set(this.productoService.obtenerProductoPorCat(idNumero));
+
+                
+                this.productoService.obtenerProductoPorCat(idNumero).subscribe({
+                    next: (productosFiltrados) &#x3D;&gt; {
+                        this.productos.set(productosFiltrados);
+                    },
+                    error: (err) &#x3D;&gt; {
+                        console.error(&#x27;Error al cargar productos:&#x27;, err);
+                        this.productos.set([]);
+                    }
+                });
+
             } else {
                 this.nombreCategoria.set(&#x27;Categoría no encontrada&#x27;);
                 this.productos.set([]);
@@ -702,10 +714,12 @@ export class Categoria implements OnInit {
         });
     }
 
-    agregarAlCarrito(producto: Producto) {
-        this.carritoService.agregarProducto(producto);
-        alert(&#x60;${producto.nombre} ha sido agregado al carrito.&#x60;);
-    }
+agregarAlCarrito(producto: Producto) {
+    this.carritoService.agregarProducto(producto).subscribe({
+        next: () &#x3D;&gt; alert(&#x60;${producto.nombre} agregado al carrito.&#x60;),
+        error: (err) &#x3D;&gt; console.error(&#x27;Error al agregar:&#x27;, err)
+    });
+}
 
 
 
@@ -786,7 +800,7 @@ export class Categoria implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><main class="container py-5">    <h2 class="text-center text-white mb-5">{{ nombreCategoria() }}</h2>        <div class="row g-4 justify-content-center">        @for (prod of productos(); track prod.id) {            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">                <article class="tarjeta-juego w-100">                    <img [src]="prod.imagen" [alt]="prod.nombre">                    <h3>{{ prod.nombre }}</h3>                    <p>{{ prod.descripcion }}</p>                    <div class="precio-contenedor">                        @if (prod.precioAnterior) { <s>${{ prod.precioAnterior }}</s> }                        <span class="precio">${{ prod.precio }}</span>                    </div>                    <button class="btn-agregar btn btn-primary" (click)="agregarAlCarrito(prod)">                        Agregar al Carrito                    </button>                </article>            </div>        }    </div>    </main></div>'
-    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Categoria'};
 </script>

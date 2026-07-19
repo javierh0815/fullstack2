@@ -631,22 +631,31 @@ export class Registro {
   }
 
 
-  registrar(){
+  registrar() {
     if (this.registroForm.valid) {
       const { confirmPassword, ...datosUsuario } &#x3D; this.registroForm.value;
 
-      if (this.usuarioService.existe(datosUsuario.username)) {
-        alert(&#x27;El nombre de usuario ya existe, por favor elegir otro.&#x27;)
-        return;
-      }
+      
+      this.usuarioService.existe(datosUsuario.username).subscribe(existe &#x3D;&gt; {
+        if (existe) {
+          alert(&#x27;El nombre de usuario ya existe, por favor elegir otro.&#x27;);
+          return;
+        }
 
-      this.usuarioService.guardar(datosUsuario);
-      alert(&#x27;Registro exitoso. Ahora puedes iniciar sesión.&#x27;);
-      this.registroForm.reset();
+        
+        this.usuarioService.guardar(datosUsuario).subscribe({
+          next: () &#x3D;&gt; {
+            alert(&#x27;Registro exitoso. Ahora puedes iniciar sesión.&#x27;);
+            this.registroForm.reset();
+          },
+          error: (err) &#x3D;&gt; {
+            console.error(&#x27;Error al registrar:&#x27;, err);
+            alert(&#x27;Hubo un error al procesar el registro.&#x27;);
+          }
+        });
+      });
     }
   }
-
-
 
 
 
@@ -762,7 +771,7 @@ export class Registro {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="juegos-grid justify-content-center">    <div class="w-100 px-3" style="max-width: 450px;">                <h2 class="text-center text-white mb-4">Formulario de Registro</h2>                <form [formGroup]="registroForm" (ngSubmit)="registrar()" class="registro-form w-100">                        <div class="mb-3">                <label for="nombre" class="form-label text-white">Nombre Completo</label>                <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingresa tu nombre completo">            </div>            <div class="mb-3">                <label for="username" class="form-label text-white">Nombre de Usuario</label>                <input type="text" class="form-control" id="username" formControlName="username" placeholder="Elige un nombre de usuario único">            </div>            <div class="mb-3">                <label for="password" class="form-label text-white">Contraseña</label>                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Crea una contraseña segura">            </div>            <div class="mb-3">                <label for="confirmPassword" class="form-label text-white">Confirmar Contraseña</label>                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirma tu contraseña">                <div *ngIf="registroForm.hasError(\'passwordsNoCoinciden\') && registroForm.get(\'confirmPassword\')?.touched" class="text-danger small">                    Las contraseñas no coinciden.                </div>            </div>            <div class="mb-3">                <label for="email" class="form-label text-white">Correo Electrónico</label>                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Ingresa tu correo electrónico">            </div>            <div class="mb-3">                <label for="fechaNacimiento" class="form-label text-white">Fecha de Nacimiento</label>                <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento">                <div *ngIf="registroForm.get(\'fechaNacimiento\')?.hasError(\'menorEdad\')" class="text-danger small">                    Debes ser mayor de 13 años.                </div>            </div>            <div class="mb-3">                <label for="direccion" class="form-label text-white">Dirección</label>                <input type="text" class="form-control" id="direccion" formControlName="direccion" placeholder="Ingresa tu dirección">            </div>            <div class="d-flex flex-column gap-2 mt-4">                <button type="submit"                     [disabled]="registroForm.invalid"                     class="btn btn-primary w-100">                        Registrarse                </button>                <button type="reset" class="btn btn-secondary w-100" (click)="registroForm.reset()">Limpiar</button>            </div>        </form>    </div></div></div>'
-    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'}];
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'CarritoComponent', 'selector': 'app-carrito'},{'name': 'Categoria', 'selector': 'app-categoria'},{'name': 'ConsolaSys', 'selector': 'app-consola-sys'},{'name': 'CuentaUsuario', 'selector': 'app-cuenta-usuario'},{'name': 'Footer', 'selector': 'app-footer'},{'name': 'Header', 'selector': 'app-header'},{'name': 'Home', 'selector': 'app-home'},{'name': 'Login', 'selector': 'app-login'},{'name': 'LoginSys', 'selector': 'app-login-sys'},{'name': 'ModificarPerfil', 'selector': ''},{'name': 'RecuperaContra', 'selector': 'app-recupera-contra'},{'name': 'Registro', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'Registro'};
 </script>
